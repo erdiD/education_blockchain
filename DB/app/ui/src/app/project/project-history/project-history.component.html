@@ -1,0 +1,21 @@
+<div class="row historySection" *ngFor="let historySection of history">
+  <div class="col-md-3 leftHistorySectionSpacer"></div>
+  <div class="col-md-9 historySectionContent">
+    <div class="row sectionHeader">
+      <img src="{{ historySection.iconURL }}" alt="{{ historySection.title }}">
+      <h3>{{ historySection.title }}</h3>
+    </div>
+    <div class="row sectionEntries" *ngFor="let entry of historySection.entries ">
+      <div class="col-md-12">
+        <img src="{{ entry.author.avatarImageSrc }}" onError="this.src='./assets/img/userBlank.png';">
+        <h3>{{ entry.author.firstName + ' ' + entry.author.lastName }}</h3>
+        <span class="actionText">{{ entry.actionText }}</span>
+        <!--<span class="date">{{entry.date | date:'dd.MMM.yyyy HH:mm:ss' }}</span>-->
+        <!--<span class="date">{{ entry.date | date:'dd.MMM.yyyy' }}</span>-->
+        <span class="date">{{ entry.date | standardDate }}</span>
+        <p class="blockIdText pull-left">{{ "Block-ID: "+entry.blockId + " Transaction-ID: " + entry.transactionId }}</p>
+        <p *ngIf="entry.customCommentText &&  entry.customCommentText !=''" class="userCommentText pull-left">{{ entry.customCommentText }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+@import '../../styles/colors';
+@import '../../styles/globalMixins';
+
+.marketPlaceHeader {
+  /*margin-top: 20px;*/
+  margin-top: 5vh;
+  height: 100px;
+  position: relative;
+}
+
+.marketPlaceHeader > .header-left-section {
+  //background-color: rgba(255,255,255,0.2);
+  margin-left:0;
+  padding-left:0;
+}
+
+.marketPlaceHeader > .header-right-section {
+  height: 100%;
+  padding-right: 0;
+}
+
+.marketPlaceHeader > .header-right-section > app-user-avatar{
+  float:right;
+  margin-top: 35px;
+}
+
+.noEntriesLabel{
+  @include absoluteCenter(300px, 50px);
+  width: 300px;
+  text-align: center;
+
+  h3{
+    width:100%;
+  }
+}
+
+app-search-field-dbilv {
+  float: right;
+}
+
+.marketPlaceList {
+  margin-top: 80px;
+}
+
+h1 {
+  @include text-shadow(0px, 2px, 4px, rgba(0, 0, 0, 0.5));
+  font-style: normal;
+  float: left;
+}
+
+h3 {
+  @include text-shadow(0px, 2px, 4px, rgba(0, 0, 0, 0.5));
+  float: left;
+  color: $lightBlue;
+  font-size: 16px;
+  font-family: $dbOfficeRegular;
+
+  margin-top: 46px;
+  margin-left: 15px;
+}
+
+.marketPlaceListWrapper {
+  margin-bottom: 200px;
+  margin-top: 45px;
+}
+
+.newProjectBtn{
+
+}
+
+.exportPDFBtn{
+  margin-left:0;
+  margin-top: 20px;
+}
+
+.logoutBtn{
+  width:25px;
+  height:25px;
+  margin-top: 38px;
+  margin-left: 30px;
+  cursor: pointer;
+  img{
+    height:25px;
+    width: auto;
+  }
+}

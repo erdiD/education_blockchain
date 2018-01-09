@@ -1,0 +1,42 @@
+
+
+.AdditionalsRow {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.AdditionalsRow .leftAdditionSection, .AdditionalsRow .rightAdditionSection {
+  padding-left: 0px;
+}
+
+.AdditionalsRow h4, .AdditionalsRow h5 {
+  line-height: 36px;
+  margin: 0px;
+}
+
+a{
+  color:white;
+}
+a:hover{
+  color:white;
+}
+
+.titles > [class*="col-"]{
+  padding:0;
+}
+
+.titles h3{
+  font-size: 20px;
+}
+
+app-animated-arrows{
+  position:absolute;
+}
+
+.rightArrow{
+  top:30px;
+}
+
+
+.leftArrow{
+  top:70px;
+}

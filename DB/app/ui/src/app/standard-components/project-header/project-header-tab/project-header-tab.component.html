@@ -1,0 +1,7 @@
+<div class="tab"
+     [ngClass]="[enabled?'enabled':'disabled', isActive?'active':'']"
+     (click)="tabClicked($event)">
+  <p>
+    {{tab.title}}
+  </p>
+</div>

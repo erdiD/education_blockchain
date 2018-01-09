@@ -1,0 +1,163 @@
+<div *ngIf="projectEntityDemand" class="container mainWrapper">
+  <form [formGroup]="form" autocomplete="off">
+  <div class="row projectViewWrapper">
+    <div class="col-md-3 leftSection">
+      <div class="progress-step-type-icon">
+        <img
+          src="{{ projectEntityDemand.typeIcon }}"
+          alt=""
+          *ngIf="projectEntityDemand">
+      </div>
+      <h2 *ngIf="projectEntityDemand">{{ projectEntityDemand.typeTitleText }}</h2>
+    </div>
+    <div class="col-md-7 centerSection">
+      <div class="row">
+        <app-user-avatar
+          [user]="projectEntityDemand.creator"
+          [small]="true"
+          *ngIf="projectEntityDemand">
+        </app-user-avatar>
+      </div>
+      <div class="row">
+        <div class="col-md-12 inputFields" *ngIf="currentProject">
+
+            <!--<section class="isDraftSection" *ngIf="isNewProject == true">
+              <md-checkbox class="example-margin" formControlName="draft" name="isDraftCheckBox" [(ngModel)]="currentProject.isDraft">Bedarf als Draft anlegen und zuweisen?</md-checkbox>
+            </section>-->
+
+            <md-select placeholder="Empfänger für Draft auswählen" formControlName="recipient" name ="recipientSelect" class="half-width" *ngIf="currentProject.isDraft">
+              <md-option value="Peter Mustermann">Peter Mustermann</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+              <md-option value="Hannelore Meyer">Hannelore Meyer</md-option>
+            </md-select>
+
+            <md-input-container class="full-width">
+              <input
+                mdInput
+                name="nameInput"
+                formControlName="name"
+                placeholder="Projekt-Name"
+                [(ngModel)]="currentProject.name"
+              >
+              <md-error align="end">Pflichtfeld</md-error>
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <textarea
+                mdTextareaAutosize = "true"
+                mdInput
+                name="descriptionInput"
+                formControlName="description"
+                placeholder="Kurzbeschreibung"
+                [(ngModel)]="projectEntityDemand.description"
+              ></textarea>
+              <md-error align="end">Pflichtfeld</md-error>
+            </md-input-container>
+
+            <md-input-container class="half-width">
+              <input
+                mdInput
+                name="budgetInput"
+                formControlName="budget"
+                placeholder="Budget (in Euro)"
+                [(ngModel)]="projectEntityDemand.budget"
+              >
+              <md-error align="end">{{ form.controls.budget.errors && form.controls.budget.errors.pattern ? 'Bitte nur Zahlen eingeben' : 'Pflichfeld' }}</md-error>
+            </md-input-container>
+
+            <!--<md-input-container class="half-width">
+              <input
+                mdInput
+                placeholder="Zieltermin"
+                [(ngModel)]="currentProject.deadline"
+              >
+            </md-input-container>-->
+
+          <!--Backup-->
+          <!--<md-input-container class="half-width" >-->
+            <!--<input #self-->
+                   <!--[(ngModel)]="projectEntityDemand.endDate"-->
+                   <!--mdInput-->
+                   <!--name="datePickerInput"-->
+                   <!--formControlName="deadline"-->
+                   <!--[mdDatepicker]="picker"-->
+                   <!--(change)="onDateInputChange(self)"-->
+                   <!--placeholder="Zieltermin">-->
+            <!--<md-error align="end">Pflichtfeld (DD.MM.YYYY)</md-error>-->
+            <!--<button mdSuffix [mdDatepickerToggle]="picker"></button>-->
+          <!--</md-input-container>-->
+          <!--<md-datepicker [startAt]="calendarStartDate" touchUi="true" #picker></md-datepicker>-->
+
+            <md-input-container class="half-width" >
+              <input #self
+                [(ngModel)]="projectEntityDemand.endDate"
+                mdInput
+                name="datePickerInput"
+                formControlName="deadline"
+                [mdDatepicker]="picker"
+                (ngModelChange)="onDateInputChange(self.value)"
+                placeholder="Zieltermin">
+              <md-error align="end">Pflichtfeld (DD.MM.YYYY)</md-error>
+              <button mdSuffix [mdDatepickerToggle]="picker"></button>
+            </md-input-container>
+            <md-datepicker [startAt]="calendarStartDate" touchUi="true" #picker></md-datepicker>
+
+            <md-select
+              [(ngModel)]="projectEntityDemand.priority"
+              placeholder="Priorität"
+              class="half-width"
+              name="prioritySelect"
+              formControlName="priority">
+              <md-option value="LOW">niedrig</md-option>
+              <md-option value="MEDIUM">mittel</md-option>
+              <md-option value="HIGH">hoch</md-option>
+            </md-select>
+
+            <div class="row uploadArea">
+              <div class="col-md-12">
+                <h3>Anhänge</h3>
+                <app-file-upload-area
+                  [projectEntity]="projectEntityDemand"
+                  [apiEndPoint] = "apiEndPointUpload"
+                ></app-file-upload-area>
+              </div>
+            </div>
+
+        </div>
+      </div>
+      <div class="row bottomButtonSection" *ngIf="projectEntityDemand">
+        <app-standard-button-dbilv (click)="onCloseClick($event)" title="Abbrechen" buttonType="normal" class="pull-left btnCancel laddaBtn"></app-standard-button-dbilv>
+        <app-standard-button-dbilv #self *ngIf="isNewProject || projectEntityDemand.state === States.DEMAND_OPENED" (click)="laddaIntercept(self, onSaveDemandClick)" title="Speichern" buttonType="light" class="pull-left btnSave laddaBtn"></app-standard-button-dbilv>
+        <app-standard-button-dbilv #self *ngIf="!currentProject.isDraft" (click)="isNewProject || projectEntityDemand.state === States.DEMAND_OPENED ? laddaIntercept(self, onSubmitDemandClick) : laddaIntercept(self, onEditDemnandClick)" [title]="isNewProject || projectEntityDemand.state === States.DEMAND_OPENED ? 'veröffentlichen' : 'aktualisieren' " buttonType="secondary" class="pull-right btnSend laddaBtn"></app-standard-button-dbilv>
+        <app-standard-button-dbilv #self *ngIf="currentProject.isDraft" (click)="laddaIntercept(self, onSendDraftClick)" title="An Empfänger senden" buttonType="secondary" class="pull-right btnSendDraft laddaBtn"></app-standard-button-dbilv>
+      </div>
+
+
+    </div>
+    <div class="col-md-2 rightSection">
+
+    </div>
+
+  </div>
+  </form>
+</div>

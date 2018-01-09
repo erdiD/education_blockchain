@@ -1,0 +1,84 @@
+@import "../../../styles/colors";
+@import "../../../styles/globalMixins";
+
+.backgroundWrapper {
+  @include notSelectable();
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+ // z-index: -10;
+}
+
+.backgroundWrapper * {
+  @include notSelectable();
+}
+
+.backgroundGradient {
+  @include absoluteCenter(100%, 1100px);
+  @include gradientBackground(70%);
+
+  width: 100%;
+  height: 1100px;
+
+  z-index: -100;
+}
+
+.backgroundPolygonWrapper {
+  z-index: -50;
+
+}
+
+.backgroundPolygonWrapper.fastTransition > .polygon {
+  @include animateTransition(all, 1s, $easeOutExpo);
+}
+
+.backgroundPolygonWrapper.slowTransition > .polygon {
+  @include animateTransition(all, 20s, $easeInOutSine);
+}
+
+.polygon {
+  @include notSelectable();
+  position: absolute;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.pol1 {
+  @include background-size(203px, 221px);
+  background-image: url('../../../assets/img/background/polygonBlur1.png');
+  width: 203px;
+  height: 221px;
+
+  top: 50%;
+  margin-top: -110px;
+  left: 50%;
+  margin-left: -101px;
+}
+
+.pol2 {
+  @include background-size(130px, 144px);
+  @include absoluteCenter(130px, 144px);
+  background-image: url('../../../assets/img/background/polygonBlur2.png');
+  width: 130px;
+  height: 144px;
+}
+
+.pol3 {
+  @include background-size(73px, 78px);
+  @include absoluteCenter(73px, 78px);
+  background-image: url('../../../assets/img/background/polygonBlur3.png');
+  width: 73px;
+  height: 78px;
+}
+
+.pol4 {
+  @include background-size(54px, 54px);
+  @include absoluteCenter(54px, 54px);
+  background-image: url('../../../assets/img/background/polygonBlur4.png');
+  width: 54px;
+  height: 54px;
+
+}
+
+

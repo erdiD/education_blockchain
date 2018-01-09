@@ -1,0 +1,52 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/globalMixins";
+
+$buttonHeight: 40px;
+
+.tab {
+  @include animateTransition(all, 0.5s, $easeInOutQuad);
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0px;
+  min-width: 130px;
+  width: 130px;
+  height: $buttonHeight;
+  background-color: $headerTabColorNormal;
+  text-align: center;
+  cursor: pointer;
+
+  p {
+    @include notSelectable();
+    font-size: 16px;
+    font-family: $dbOfficeRegular;
+    letter-spacing: 0.06em;
+    color: $white;
+    line-height: $buttonHeight;
+    opacity: 0.4;
+  }
+}
+
+.tab.active {
+  @include shadow(4px, 0px, 10px, 0px, rgba(0, 0, 0, 0.55));
+  background-color: $btnStandardBlueDark;
+  p {
+    opacity: 1;
+  }
+}
+
+.tab:hover, .tab:focus {
+  background-color: $headerTabColorHover;
+}
+
+.tab.active:hover, .tab.active:focus {
+  background-color: $btnStandardBlueDarkHover;
+}
+
+.tab.disabled {
+  cursor: not-allowed;
+}
+
+.tab.disabled:hover, .tab.disabled:focus {
+  background-color: $headerTabColorNormal;
+}

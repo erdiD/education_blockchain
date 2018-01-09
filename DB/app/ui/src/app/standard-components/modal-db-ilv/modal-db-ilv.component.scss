@@ -1,0 +1,40 @@
+.acceptButton{
+  margin-left:20px;
+}
+
+.buttonSection > .acceptButton, .buttonSection > .rejectButton{
+
+}
+
+.mat-dialog-actions.buttonSection{
+  display:block;
+}
+.commentInputCol{
+  padding-top:40px;
+}
+
+.commentInputContainer{
+  float:left;
+  width:85%;
+}
+
+.inputWrapper{
+  padding-right:40px;
+  padding-left:10px;
+}
+
+.modalIcon{
+  height: 40px;
+  float:left;
+  margin-right:20px;
+}
+
+.title{
+  line-height: 40px;
+}
+
+app-user-avatar{
+  float:left;
+  margin-right:18px;
+  margin-top:12px;
+}

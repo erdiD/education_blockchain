@@ -1,0 +1,46 @@
+<div class="container loginScreen">
+  <img class="fullscreenBtn" src="assets/img/icons/smallIcons_64x64/icon_small_fullscreen.png" alt="Fullscreen Mode" (click)="requestFullscreen($event)">
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <img class="logo" src="assets/img/splashscreen/ilvBlockchainLogo.png" alt="Blockchain ILV Logo">
+        <form (ngSubmit)="laddaIntercept(loginBtn, login)" autocomplete="off">
+
+          <md-input-container class="full-width">
+            <input
+              autofocus
+              mdInput
+              name="username"
+              [(ngModel)]="username"
+              placeholder="Benutzername"
+            >
+          </md-input-container>
+
+        <md-input-container class="full-width">
+          <input
+            mdInput
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Passwort"
+          >
+        </md-input-container>
+        <br>
+        <app-standard-button-dbilv
+          #loginBtn
+          class="pull-right"
+          title="login"
+          buttonType="secondary"
+        ></app-standard-button-dbilv>
+<!--
+        <button type="button" class="btn btn-success" (click)="login();">login</button>
+-->
+          <button type="submit" style="display:none">button</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <p class="alert">{{errorMessage}}</p>
+</div>

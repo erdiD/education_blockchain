@@ -1,0 +1,8 @@
+<app-background-main-dbilv></app-background-main-dbilv>
+<app-status-notifications
+  [ngStyle]="showStatusNotifications ? {'display':'block'} : {'display':'none'}"
+></app-status-notifications>
+<div [ngStyle]="showMainRouterContent ? {'display':'block'} : {'display':'none'}">
+  <router-outlet></router-outlet>
+</div>
+

@@ -1,0 +1,56 @@
+@import "../../../styles/colors";
+@import "../../../styles/globalMixins";
+
+.standardSearch {
+  position: relative;
+}
+
+.standardSearchInputField {
+  @include shadow(0px, 5px, 10px, 0px, rgba(0, 0, 0, 0.3));
+  @include border-radius(20px);
+  @include animateTransition(all, 0.5s, $easeInOutQuad);
+
+  width: 200px;
+  height: 40px;
+  outline: none;
+
+  font-family: $dbOfficeRegular;
+  font-size: 15px;
+
+  border: none;
+
+  background-color: rgba(0, 75, 100, 0.5);
+  padding-left: 60px;
+  color: $white;
+
+}
+
+.standardSearch img {
+  @include animateTransition(all, 0.5s, $easeInOutQuad);
+  width: 25px;
+  height: 25px;
+  margin-right: -40px;
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  margin-left: 15px;
+  opacity: 0.6;
+  left: 0;
+}
+
+.standardSearch.hasFocus img {
+  opacity: 1;
+}
+
+.standardSearch.hasFocus > .standardSearchInputField {
+  width: 350px;
+  background-color: $btnBlueMedium;
+}
+
+.standardSearchInputField:focus, .standardSearchInputField:hover {
+  background-color: rgba(0, 75, 100, 1);
+}
+
+.standardSearchInputField::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}

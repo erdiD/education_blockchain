@@ -1,0 +1,10 @@
+{
+  "description": "new description",
+  "endDate": "10.10.2099",
+  "budget": "1010,10",
+  "priority": "LOW",
+  "name": "updated name",
+  "state": "NO_STATE",
+  "messageBoardUrl": "https://db-planet.deutschebahn.com/home",
+  "targetAccount": "DE44500105175407324931"
+}

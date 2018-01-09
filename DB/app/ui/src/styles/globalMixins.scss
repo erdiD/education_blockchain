@@ -1,0 +1,61 @@
+@import "../../node_modules/awesome-sass-easing/sass-easing";
+
+@mixin background-size($width, $height) {
+  background-size: $width $height;
+  -webkit-background-size: $width $height;
+  -moz-background-size: $width $height;
+  -o-background-size: $width $height;
+}
+
+@mixin animateTransition($targetValue, $speed, $ease) {
+  transition: $targetValue $speed $ease;
+  -webkit-transition: $targetValue $speed $ease;
+  -moz-transition: $targetValue $speed $ease;
+  -o-transition: $targetValue $speed $ease;
+}
+
+@mixin notSelectable() {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  pointer-events: none;
+}
+
+@mixin absoluteCenter($width, $height) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -$width/2;
+  margin-top: -$height/2;
+}
+
+@mixin shadow($xOffset, $yOffset, $blur, $spread, $color) {
+  box-shadow: $xOffset $yOffset $blur $spread $color;
+  -webkit-box-shadow: $xOffset $yOffset $blur $spread $color;
+  -moz-box-shadow: $xOffset $yOffset $blur $spread $color;
+  -o-box-shadow: $xOffset $yOffset $blur $spread $color;
+}
+
+@mixin text-shadow($xOffset, $yOffset, $blur, $color) {
+  text-shadow: $xOffset $yOffset $blur $color;
+}
+
+@mixin text-double-shadow($xOffset_a, $yOffset_a, $blur_a, $color_a, $xOffset_b, $yOffset_b, $blur_b, $color_b) {
+  text-shadow: $xOffset_a $yOffset_a $blur_a $color_a, $xOffset_b $yOffset_b $blur_b $color_b;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}

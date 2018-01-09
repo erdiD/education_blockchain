@@ -1,0 +1,11 @@
+<div *ngIf="user"
+     class="userAvatar"
+     [ngClass]="{smallVersion: small}"
+>
+  <div class="userAvatarImage">
+    <img src="{{ user.avatarImageSrc }}" alt="{{ user.lastName }}">
+  </div>
+  <div class="userAvatarName" *ngIf="showName === true">
+    <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+  </div>
+</div>

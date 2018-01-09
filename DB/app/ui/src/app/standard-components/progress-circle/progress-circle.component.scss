@@ -1,0 +1,36 @@
+@import "../../../styles/colors";
+@import "../../../styles/globalMixins";
+
+
+$height : 170px;
+$width : 170px;
+
+.progress-circle-wrapper{
+  width:$width;
+  height:$height;
+  text-align: center;
+
+  .unit{
+    font-size: 32px;
+  }
+
+  h1{
+    font-size:55px;
+    margin:0;
+    padding:0;
+    position:absolute;
+    width: $width;
+    line-height: $height;
+  }
+
+  h2{
+    font-size:20px;
+    margin:0;
+    padding:0;
+    position:absolute;
+    width: $width;
+    top: $height + 25px;
+  }
+}
+
+

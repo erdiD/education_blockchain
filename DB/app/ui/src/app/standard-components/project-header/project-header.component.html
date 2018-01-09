@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default navbar-fixed-top mainProjectHeader" #headerMainWrapper
+     [ngClass]="{collapsed: collapsedHeader, hideTop:hideTopHeader, animate:animate}"
+     [@projectHeaderState]="headerState">
+  <div class="secondBackground"></div>
+  <div class="firstBackground"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 leftSection">
+        <!--<img class="projectTypeIcon" src="../../../../assets/img/icons/icon_Dev.png" alt="">-->
+        <h1 [ngClass]="{noSubheadline: projectID === ''}" class="headerTitle">{{title}}</h1>
+        <h3 class="processID" *ngIf="projectID != ''">
+          <div><span>Vorgangsnummer:</span> <span class="processID">{{projectID}}</span></div>
+          <div *ngIf="currentProjectTask"><span>Status:</span> <span class="processID">{{currentProjectTask | simpleTranslation}}</span></div>
+        </h3>
+      </div>
+      <div class="col-md-5 rightSection">
+        <div class="tabs">
+          <app-project-header-tab (click)="onTabClicked(tab)" class="tabButton" [isActive]="tab.active"
+                                  [enabled]="tab.enabled"  *ngFor="let tab of tabs" [tab]="tab">
+          </app-project-header-tab>
+        </div>
+        <div class="closeBtn" (click)="routeBackToMarketPlace($event)">
+          <img src="assets/img/icons/icon_Close.png" alt="Back to Overview">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="progressBar" [style.width]="getProjectProgressPercentage() + '%'">
+  </div>
+</nav>

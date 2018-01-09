@@ -1,0 +1,33 @@
+@import "../../../styles/colors";
+@import "../../../styles/globalMixins";
+
+.statusNotificationMainWrapper{
+  position: absolute;
+  left: 50%;
+  margin-left: -300px;
+  width: 600px;
+  height: 300px;
+  top: 50%;
+  margin-top: -150px;
+  text-align: center;
+}
+
+.statusNotificationMainWrapper .title-text{
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.statusNotificationMainWrapper img{
+  width: 150px;
+  height:auto;
+}
+
+.statusNotificationMainWrapper .closeBtn{
+  display:inline-table;
+}
+
+.statusNotificationMainWrapper .additional-string{
+  font-size: 18px;
+  margin-bottom: 20px;
+  margin-top: -15px;
+}

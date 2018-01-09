@@ -1,0 +1,67 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "fonts";
+@import "colors";
+@import "globalMixins";
+@import "nv.d3.scss";
+
+body,html{height:100%}
+
+body{
+  background: $mainBackgroundColor;
+  width:100%;
+  height:100%;
+  color:$white;
+  font-family: $dbOfficeRegular;
+}
+
+p{
+  letter-spacing: 0.02em;
+  line-height:28px;
+}
+
+h1{
+  font-family: $dbOfficeBold;
+  color: $white;
+  font-size:46px;
+}
+
+h3{
+  color: $lightBlue;
+  font-size: 16px;
+  font-family: $dbOfficeRegular;
+}
+
+h4{
+  color: $lightBlue;
+  font-size: 16px;
+  font-family: $dbOfficeRegular;
+}
+
+h5{
+  color: $white;
+  font-size: 16px;
+  font-family: $dbOfficeRegular;
+}
+
+#loadingSpinner{
+  @include absoluteCenter(100px,100px);
+  width:100px;
+  height:100px;
+}
+
+.lightBlue{
+  color: $lightBlue;
+}
+
+.darkBlue{
+  color: $darkBlueFontColor;
+}
+
+.lightBlue-border{
+  border-color: $lightBlue;
+}
+
+.darkBlue-border{
+  border-color: $darkBlueFontColor;
+}

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset plugin="maven-plugin@2.17">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.8">
+      <gitLabConnection>ilv-app</gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>GITTAG</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
+        <url>${APPGIT}</url>
+        <credentialsId>f0641b44-a387-4586-81b2-0e1cb1ece77e</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>tags/${GITTAG}</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>de.deutschebahn.ilv</groupId>
+    <artifactId>rest-api</artifactId>
+  </rootModule>
+  <rootPOM>ilv-server-all/rest-api/pom.xml</rootPOM>
+  <goals>package</goals>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <ignoreUpstremChanges>false</ignoreUpstremChanges>
+  <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+  <archivingDisabled>false</archivingDisabled>
+  <siteArchivingDisabled>false</siteArchivingDisabled>
+  <fingerprintingDisabled>false</fingerprintingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+  <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+  <reporters/>
+  <publishers>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.35.1">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>DOCKERTAG=${GITTAG}</properties>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+          </configs>
+          <projects>ilv-app-deployment</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <triggerFromChildProjects>false</triggerFromChildProjects>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+  <prebuilders>
+    <hudson.tasks.Shell>
+      <command>rm -rf ${WORKSPACE}/ilv-server-all/rest-api/src/main/webapp/app
+mkdir -p ${WORKSPACE}/ilv-server-all/rest-api/src/main/webapp/app
+id=$(sudo docker create ${DOCKERREG}/ilv-app-angular:${GITTAG})
+sudo docker cp $id:/usr/src/app/dist/. ${WORKSPACE}/ilv-server-all/rest-api/src/main/webapp/app/
+sudo docker rm -v $id</command>
+    </hudson.tasks.Shell>
+  </prebuilders>
+  <postbuilders>
+    <hudson.tasks.Shell>
+      <command>mkdir -p ci &amp;&amp; git clone ${CIGIT} ci
+cp -r ${WORKSPACE}/ci/server/* ${WORKSPACE}/ilv-server-all/rest-api/target/
+cd ${WORKSPACE}/ilv-server-all/rest-api/target/
+sudo docker build -t ${DOCKERREG}/ilv-app:${GITTAG} .
+sudo docker push ${DOCKERREG}/ilv-app:${GITTAG}
+</command>
+    </hudson.tasks.Shell>
+  </postbuilders>
+  <runPostStepsIfResult>
+    <name>SUCCESS</name>
+    <ordinal>0</ordinal>
+    <color>BLUE</color>
+    <completeBuild>true</completeBuild>
+  </runPostStepsIfResult>
+</maven2-moduleset>

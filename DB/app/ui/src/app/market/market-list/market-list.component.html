@@ -1,0 +1,46 @@
+<table class="table">
+
+  <thead>
+  <tr>
+    <th (click)="sortableHeaderClicked('name', $event)">
+      <p>Titel&nbsp;&nbsp;</p>
+    </th>
+<!--
+    <th>Ihre Aufgaben</th>
+-->
+    <th (click)="sortableHeaderClicked('lastModified', $event)">
+      <p>Letzte Änderung ↓</p>
+    </th>
+    <th (click)="sortableHeaderClicked('state', $event)">
+      <p>Status&nbsp;</p>
+    </th>
+    <th (click)="sortableHeaderClicked('id', $event)">
+      <p>Vorgangsnr.&nbsp;</p>
+    </th>
+    <th (click)="sortableHeaderClicked('budget', $event)">
+    <p>Budget&nbsp;</p>
+    </th>
+    <th>
+      <p>Organisation</p>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor=" let project of ( data | searchFilter: search | sort: sortBy : sortOrderDESC)" (click)="routeToProjectDetail($event, project)" [title]="project.name">
+    <td>{{ project.name.substring(0,50)}}</td>
+    <td>{{ project.lastModified | standardDate:true }}</td>
+<!--    <td
+      [ngClass]="[project.task == 'abgelaufen'? 'overdue':'' , project.task == 'läuft bald ab'? 'soonOver':'' , project.task == 'wartet'? 'waiting':'']">
+      {{ project.task }}
+    </td>-->
+    <!--<td>{{ project.state | simpleTranslation}}</td>-->
+    <td>{{ project.task | simpleTranslation}}</td>
+    <td>{{ project.id }}</td>
+    <td>{{ project.budget || " " | commaRemoval}} €</td>
+    <td>{{ project.ownerOrganization.name }}</td>
+  </tr>
+  </tbody>
+
+</table>
+

@@ -1,0 +1,106 @@
+<div class="row titles">
+  <div class="col-md-5">
+    <h3>Bedarf</h3>
+  </div>
+  <div class="col-md-offset-7">
+    <h3>Angebot</h3>
+  </div>
+</div>
+<div class="row AdditionalsRow">
+  <div class="col-md-5 leftAdditionSection">
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Partner:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityContract.demand.creator.firstName + " " + projectEntityContract.demand.creator.lastName }}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Organisation:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityContract.demand.ownerOrg.name }}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Budget:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityContract.demand.budget}} €</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Zieltermin:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityContract.demand.endDate | standardDate}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Status:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityContract.state | simpleTranslation}}</h5>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-2 centerSection">
+    <app-animated-arrows class="rightArrow" [direction]="AnimatedArrowsComponentDirection.RIGHT"></app-animated-arrows>
+    <app-animated-arrows class="leftArrow" [direction]="AnimatedArrowsComponentDirection.LEFT"></app-animated-arrows>
+  </div>
+
+  <div class="col-md-5 rightAdditionSection">
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Partner:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityContract.offer.creator.firstName + " " + projectEntityContract.offer.creator.lastName }}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Organisation:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityContract.offer.ownerOrg.name }}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Preis:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityContract.offer.price}} €</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Start:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityContract.offer.startDate | standardDate}}</h5>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+

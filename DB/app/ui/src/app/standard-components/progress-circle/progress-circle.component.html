@@ -1,0 +1,25 @@
+<div class="progress-circle-wrapper">
+  <h1>{{currentCircleValue}}<span class="unit">{{unit}}</span></h1>
+  <h2>{{subTitle}}</h2>
+  <round-progress
+    [current]="circleValue"
+    [max]="100"
+    [color]="'url(#gradient)'"
+    background="rgba(255,255,255,0.1)"
+    [stroke]="20"
+    [semicircle]="false"
+    [rounded]="true"
+    [clockwise]="true"
+    [responsive]="true"
+    [duration]="900"
+    [animation]="'easeInOutCirc'"
+    [animationDelay]="145"
+    (onRender)="onRenderCallback($event)">
+  </round-progress>
+  <svg>
+    <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="5%"  stop-color="rgba(0,135,185,1)"/>
+      <stop offset="95%" stop-color="rgba(40,215,255,1)"/>
+    </linearGradient>
+  </svg>
+</div>

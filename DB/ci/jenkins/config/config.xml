@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>jenkins.security.s2m.MasterKillSwitchWarning</string>
+  </disabledAdministrativeMonitors>
+  <version>2.76</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
+    <denyAnonymousReadAccess>false</denyAnonymousReadAccess>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>50000</slaveAgentPort>
+  <label></label>
+  <nodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>1</int>
+          <string>RESTAPIHOST</string>
+          <string>10.0.2.15</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </nodeProperties>
+  <globalNodeProperties>
+    <org.jenkinsci.plugins.envinject.EnvInjectNodeProperty plugin="envinject@2.1.4">
+      <unsetSystemVariables>false</unsetSystemVariables>
+      <propertiesFilePath>/var/jenkins_home/propFile.properties</propertiesFilePath>
+    </org.jenkinsci.plugins.envinject.EnvInjectNodeProperty>
+  </globalNodeProperties>
+</hudson>

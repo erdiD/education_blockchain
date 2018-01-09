@@ -1,0 +1,5 @@
+<div class="standardSearch" [ngClass]="hasFocus?'hasFocus':'noFocus'">
+  <input class="standardSearchInputField" type="text" #inputField [name]="name" [placeholder]="placeholder"
+         (keyup)="onKeyUp($event)" (input)="onInputFieldChange($event)" (focus)="onFocusIn()" (focusout)="onFocusOut()">
+  <img src="assets/img/icons/icon_search.png">
+</div>

@@ -1,0 +1,9 @@
+{
+  "description": "new description",
+  "budget": "100,10",
+  "priority": "HIgH",
+  "name": "updated name",
+  "targetAccount": "DE44500105175407324931",
+  "endDate": "25.11.2018",
+  "messageBoardUrl": "https://db-planet.deutschebahn.com/home"
+}

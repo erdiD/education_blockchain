@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset plugin="maven-plugin@2.17">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.8">
+      <gitLabConnection>ilv-app</gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>${APPGIT}</url>
+        <credentialsId>f0641b44-a387-4586-81b2-0e1cb1ece77e</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/*</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <com.dabsquared.gitlabjenkins.GitLabPushTrigger plugin="gitlab-plugin@1.4.8">
+      <spec></spec>
+      <triggerOnPush>true</triggerOnPush>
+      <triggerOnMergeRequest>true</triggerOnMergeRequest>
+      <triggerOnPipelineEvent>false</triggerOnPipelineEvent>
+      <triggerOnAcceptedMergeRequest>false</triggerOnAcceptedMergeRequest>
+      <triggerOnClosedMergeRequest>false</triggerOnClosedMergeRequest>
+      <triggerOpenMergeRequestOnPush>never</triggerOpenMergeRequestOnPush>
+      <triggerOnNoteRequest>true</triggerOnNoteRequest>
+      <noteRegex>Jenkins please retry a build</noteRegex>
+      <ciSkip>true</ciSkip>
+      <skipWorkInProgressMergeRequest>true</skipWorkInProgressMergeRequest>
+      <setBuildDescription>true</setBuildDescription>
+      <branchFilterType>All</branchFilterType>
+      <includeBranchesSpec></includeBranchesSpec>
+      <excludeBranchesSpec></excludeBranchesSpec>
+      <targetBranchRegex></targetBranchRegex>
+      <secretToken>{AQAAABAAAAAQFBgb3rUl35DsczSbhsPYbXWINtEY5yveVPBjxQgjBZY=}</secretToken>
+    </com.dabsquared.gitlabjenkins.GitLabPushTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>de.deutschebahn.ilv</groupId>
+    <artifactId>rest-api</artifactId>
+  </rootModule>
+  <rootPOM>ilv-server-all/rest-api/pom.xml</rootPOM>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+  <archivingDisabled>false</archivingDisabled>
+  <siteArchivingDisabled>false</siteArchivingDisabled>
+  <fingerprintingDisabled>false</fingerprintingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+  <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+  <reporters/>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+  <prebuilders/>
+  <postbuilders>
+    <hudson.tasks.Shell>
+      <command>mkdir -p ci &amp;&amp; git clone ${CIGIT} ci
+cp -r ${WORKSPACE}/ci/server/* ${WORKSPACE}/ilv-server-all/rest-api/target/
+cd ${WORKSPACE}/ilv-server-all/rest-api/target/
+sudo docker build -t ${DOCKERREG}/ilv-app:systemtest .
+sudo docker push ${DOCKERREG}/ilv-app:systemtest</command>
+    </hudson.tasks.Shell>
+  </postbuilders>
+  <runPostStepsIfResult>
+    <name>FAILURE</name>
+    <ordinal>2</ordinal>
+    <color>RED</color>
+    <completeBuild>true</completeBuild>
+  </runPostStepsIfResult>
+</maven2-moduleset>

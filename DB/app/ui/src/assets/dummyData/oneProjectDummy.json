@@ -1,0 +1,57 @@
+{
+  "id":"3204734",
+  "name":"Ein neues Projekt",
+  "demand": {
+    "projectId":"3204734",
+    "id":"2130933",
+    "state":"DEMAND_STATE_OPEN",
+    "creator":{
+      "name": "Pearson",
+      "firstname": "Josephine",
+      "avatarImageSrc" : "../../assets/img/dummyUser.jpg"
+    },
+    "publisher":{
+      "id":"11",
+      "name": "Pearson",
+      "firstname": "Josephine",
+      "avatarImageSrc" : "../../assets/img/dummyUser.jpg"
+    },
+    "ownerOrg":"DB Fantasy",
+    "create-time":"11.05.2017 – 13:30",
+    "budget":"40.000€",
+    "priority":"high",
+    "description":"Kurzbeschreibungstext",
+    "descriptionDocumentURL":"Projektbeschreibung_4324.pdf",
+    "deadline":"25.11.2017",
+    "messageBoradUrl":"https://db-planet.deutschebahn.com/home",
+    "linkedOffers":["7429374"],
+    "availableActions":["canEdit","canAskQuestion","canMakeOffer"],
+    "recipient":""
+  },
+  "offers":[{
+    "projectId":"3204734",
+    "id":"7429374",
+    "demandId":"2130933",
+    "creator":{
+      "id":"12",
+      "name": "Müller",
+      "firstname": "Michael",
+      "avatarImageSrc" : "../../assets/img/dummyUser2.jpg"
+    },
+    "ownerOrg":"DB Systel",
+    "create-time":"11.05.2017 – 13:30",
+    "price":"25 PT",
+    "runningTime":"18 Wochen",
+    "availability":"ab KW 21 / 2 P.T. p. W.",
+    "contractType":"v2",
+    "description":"Angebots-Kurzbeschreibung",
+    "descriptionDocumentURL":"Angebot_ausführlich.pdf",
+    "state":"OFFER_STATE_OPEN",
+    "availableActions":["canEdit"],
+    "deadline":"25.11.2017",
+    "messageBoradUrl":"https://db-planet.deutschebahn.com/home"
+  }],
+  "state":"someState",
+  "role": "Bedarfsträger",
+  "task": "wartet"
+}

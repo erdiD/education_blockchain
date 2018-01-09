@@ -1,0 +1,1 @@
+export PipeGitTag=$1

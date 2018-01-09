@@ -1,0 +1,325 @@
+<div class="container mainWrapper">
+  <div class="row demandViewWrapper">
+    <div class="col-md-3 leftSection">
+      <div class="progress-step-type-icon">
+        <img src="{{ projectEntity.typeIcon }}" alt="">
+      </div>
+      <h2>{{ projectEntity.typeTitleText }}</h2>
+    </div>
+    <div class="col-md-8 centerSection">
+
+      <app-project-entity-content-demand [projectEntityDemand]="projectEntity"
+                                             *ngIf="projectEntity.type === EntityTypes.ENTITY_TYPE_DEMAND"></app-project-entity-content-demand>
+      <app-project-entity-content-offer [projectEntityOffer]="projectEntity"
+                                              *ngIf="projectEntity.type === EntityTypes.ENTITY_TYPE_OFFER"></app-project-entity-content-offer>
+      <app-project-entity-content-contract [projectEntityContract]="projectEntity"
+                                              *ngIf="projectEntity.type === EntityTypes.ENTITY_TYPE_CONTRACT"></app-project-entity-content-contract>
+    </div>
+    <div class="col-md-1 rightSection">
+      <img
+        src="assets/img/icons/smallIcons_64x64/icon_small_edit.png"
+        alt="{{projectEntity.typeTitleText}} bearbeiten"
+        title="{{projectEntity.typeTitleText}} bearbeiten"
+        class="editButton"
+        (click)="onEditProgressStepClick($event, projectEntity)"
+        *ngIf="projectEntity && ( projectEntity.availableActions.indexOf(Actions.EDIT_DEMAND) > -1 ||
+                                 projectEntity.availableActions.indexOf(Actions.EDIT_OFFER) > -1) "
+      >
+
+      <span class="pdfButton glyphicon glyphicon-save-file" aria-hidden="true"
+            src="assets/img/icons/smallIcons_64x64/icon_small_download.png"
+            title="{{projectEntity.typeTitleText}} als PDF herunterladen"
+            (click)="downloadPDF(projectEntity)"
+            *ngIf="projectEntity && projectEntity.type === EntityTypes.ENTITY_TYPE_CONTRACT
+                             && projectEntity.state === 'CONTRACT_SIGNED'"
+      ></span>
+
+    </div>
+  </div>
+
+  <div class="row historyView" *ngIf="projectEntity">
+    <app-project-history
+      [projectEntity]="projectEntity"
+      *ngIf="projectEntity.progressHistory && projectEntity.progressHistory.length > 0"
+    ></app-project-history>
+  </div>
+
+  <div class="row buttonSection" *ngIf="projectEntity && projectEntity.availableActions.length > 0">
+    <div class="col-md-12 buttonArea" *ngIf="projectEntity">
+
+      <!--ASK QUESTIONS BUTTON-->
+      <app-standard-button-dbilv
+        *ngIf="projectEntity.availableActions.indexOf(Actions.ASK_QUESTION) != -1"
+        class="pull-left"
+        title="Rückfragen"
+        buttonType="light"
+        (click)="onAskQuestionClick($event)">
+      </app-standard-button-dbilv>
+
+      <!--ASK FOR APPROVAL OFFER BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.ASK_FOR_APPROVAL) != -1"
+        class="pull-right"
+        title="Genehmigen lassen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onAskForApprovalClick)">
+      </app-standard-button-dbilv>
+
+      <!--ACCEPT DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.ACCEPT_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf akzeptieren"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onAcceptDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--SUBMIT DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.SUBMIT_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf veröffentlichen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onSubmitDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--REJECT DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REJECT_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf Ablehnen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onRejectDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--APPROVE DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.APPROVE_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf genehmigen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onApproveDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--REVOKE DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REVOKE_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf aufheben"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onRevokeDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--RESIGN DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.RESIGN_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf abbrechen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onResignDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--BLOCK DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.BLOCK_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf blockieren"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onBlockDemand)">
+      </app-standard-button-dbilv>
+
+      <!--CLOSE DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.CLOSE_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf abbrechen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onCloseDemand)">
+      </app-standard-button-dbilv>
+
+      <!--COMPLETE DEMAND BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.COMPLETE_DEMAND) != -1"
+        class="pull-right"
+        title="Bedarf abschließen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onCompleteDemandClick)">
+      </app-standard-button-dbilv>
+
+      <!--MAKE OFFER BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="!hasOpenOffers() && projectEntity.availableActions.indexOf(Actions.MAKE_OFFER) != -1"
+        class="pull-right"
+        title="Angebot abgeben"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onMakeOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--SUBMIT OFFER BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.SUBMIT_OFFER) != -1"
+        class="pull-right"
+        title="Angebot veröffentlichen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onSubmitOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--ACCEPT OFFER BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.ACCEPT_OFFER) != -1"
+        class="pull-right"
+        title="Angebot annehmen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onAcceptOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--APPROVE OFFER BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.APPROVE_OFFER) != -1"
+        class="pull-right"
+        title="Genehmigen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onApproveOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--APPROVE OFFER INTERNAL BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.APPROVE_OFFER_INTERNAL) != -1"
+        class="pull-right"
+        title="Genehmigen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onApproveOfferInternalClick)">
+      </app-standard-button-dbilv>
+
+      <!--REJECT Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REJECT_OFFER) != -1"
+        class="pull-right"
+        title="Angebot ablehnen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onRejectOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--REVIEW OFFER BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REVIEW_OFFER) != -1"
+        class="pull-right"
+        title="Genehmigung anfragen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onReviewOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--CLOSE Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.CLOSE_OFFER) != -1"
+        class="pull-right"
+        title="Angebot schließen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onCloseOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--RESIGN Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.RESIGN_OFFER) != -1"
+        class="pull-right"
+        title="Angebot abbrechen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onResignOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--REWORK Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REWORK_OFFER) != -1"
+        class="pull-right"
+        title="??? REWORK_OFFER"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onReworkOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--COMPLETE Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.COMPLETE_OFFER) != -1"
+        class="pull-right"
+        title="Angebot abschließen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onCompleteOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--REVOKE Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REVOKE_OFFER) != -1"
+        class="pull-right"
+        title="Angebot aufheben"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onRevokeOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--ACTIVATE Offer BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.ACTIVATE_OFFER) != -1"
+        class="pull-right"
+        title="Reaktivieren (verlängern)"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onActivateOfferClick)">
+      </app-standard-button-dbilv>
+
+      <!--SIGN BUTTON-->
+      <!-- <app-standard-button-dbilv
+         *ngIf="projectEntity.availableActions.indexOf(Actions.ACTION_CAN_SIGN) != -1"
+         class="pull-right"
+         title="Unterzeichnen"
+         buttonType="secondary"
+         (click)="onSignClick($event)">
+       </app-standard-button-dbilv>-->
+
+      <!--CONTRACT----------------- -->
+
+      <!--SIGN CONTRACT BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.SIGN_CONTRACT) != -1"
+        class="pull-right"
+        title="Vertrag unterzeichnen"
+        buttonType="secondary"
+        (click)="laddaIntercept(self, onSignContractClick)">
+      </app-standard-button-dbilv>
+
+      <!--SIGN CONTRACT BUTTON-->
+      <app-standard-button-dbilv
+        #self
+        *ngIf="projectEntity.availableActions.indexOf(Actions.REJECT_CONTRACT) != -1"
+        class="pull-right"
+        title="Vertrag ablehnen"
+        buttonType="normal"
+        (click)="laddaIntercept(self, onRejectContractClick)">
+      </app-standard-button-dbilv>
+
+
+    </div>
+    <div class="col-md-3 leftButtonSectionSpacer"></div>
+  </div>
+</div>
+

@@ -1,0 +1,9 @@
+**/target/
+**/.idea/
+**/*.iml
+**/artifacts/
+**/build
+**/.gradle
+**/chaincode-deployment
+release.properties
+**/*.releaseBackup

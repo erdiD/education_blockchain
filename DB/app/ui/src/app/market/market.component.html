@@ -1,0 +1,60 @@
+
+<div class="container" *ngIf="projects">
+  <div class="noEntriesLabel" *ngIf="projects && projects.length == 0">
+    <h3>Keine aktiven Vorgänge gefunden...</h3>
+  </div>
+
+  <div class="row marketPlaceHeader" [@headerState]="headerState">
+    <div class="col-md-7 header-left-section">
+      <h1>Vorgänge</h1>
+    </div>
+    <div class="col-md-5 header-right-section">
+        <div (click)="onLogoutClick()" class="logoutBtn pull-right">
+          <img src="assets/img/icons/icon_logout.png" alt="logout">
+        </div>
+        <app-user-avatar class="pull-right" [user]="auth.loggedUser" [small]="true"></app-user-avatar>
+    </div>
+  </div>
+  <div class="row marketPlaceList" [@listState]="listState">
+    <div class="row">
+      <div class="col-md-6">
+        <app-standard-button-dbilv
+          *ngIf="loggedInUser && loggedInUser.canCreateDemand === true"
+          buttonType="secondary"
+          title="+ Neuer Bedarf"
+          class="newProjectBtn pull-left"
+          (click)="onCreateNewBedarfClick()">
+        </app-standard-button-dbilv>
+      </div>
+
+      <div class="col-md-6">
+        <app-search-field-dbilv name="searchProjectsInput" placeholder="Projekt Suchen" *ngIf="projects && projects.length > 0"
+                                (confirmInput)="onSearchInputConfirm($event)"
+                                (inputUpdate)="onSearchUpdate($event)"></app-search-field-dbilv>
+
+        <!--<app-standard-button-dbilv
+          buttonType="normal"
+          title="PDF"
+          icon="../../assets/img/icons/icon_download.png"
+          class="exportPDFBtn pull-right">
+        </app-standard-button-dbilv>-->
+      </div>
+    </div>
+
+    <div class="row" style="margin-right: 0.3rem; padding-top: 3rem;" *ngIf="projects && projects.length > 0">
+      <app-standard-button-dbilv
+        buttonType="normal"
+        bootstrapIcon = "glyphicon glyphicon-refresh"
+        title="Refresh"
+        (click)="refreshList()"
+        class=" pull-right">
+      </app-standard-button-dbilv>
+    </div>
+
+    <div class="row marketPlaceListWrapper" *ngIf="projects && projects.length > 0">
+      <div class="col-md-12">
+        <app-marketplace-list [search]="search" [data]="projects" (listElementClicked)="onListClick($event)"></app-marketplace-list>
+      </div>
+    </div>
+  </div>
+</div>

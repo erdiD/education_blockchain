@@ -1,0 +1,874 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Defintion of ILV resources",
+    "version": "0.0.1",
+    "title": "ILV",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "albert.lacambra-basil@deutschebahn.com"
+    }
+  },
+  "host": "localhost:1234",
+  "basePath": "/app/resources/v0/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/project": {
+      "get": {
+        "operationId": "getProjects",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get a list of existing projects",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Projects"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/session": {
+      "get": {
+        "operationId": "getCurrentSession",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get logged user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "login",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Creates a user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/demand": {
+      "post": {
+        "summary": "Creates a new demand",
+        "description": "",
+        "operationId": "createDemand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "demand contents",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InsertUpdateDemand"
+            }
+          },
+          {
+            "in": "query",
+            "name": "directSubmit",
+            "description": "the created demand will be directed submitted in case its valid",
+            "required": false,
+            "default": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Demand created",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/demand/{id}": {
+      "get": {
+        "summary": "Get a complete demand object. That means with users, orgs and Offers",
+        "description": "",
+        "operationId": "getFullDemand",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Demand object id to be fetched",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Demand found and delivered",
+            "schema": {
+              "$ref": "#/definitions/GetDemand"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "404": {
+            "description": "demand not found",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update an existing demand",
+        "description": "",
+        "operationId": "updateDemand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Demand object that needs to be updated",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "demand contents",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InsertUpdateDemand"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Demand updated"
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "404": {
+            "description": "demand not found",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/demand/{id}/state": {
+      "put": {
+        "summary": "Update an existing demand",
+        "description": "",
+        "operationId": "fire action on demand object",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Demand object that needs to be updated",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "actions to be fired",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "CREATE",
+              "OPEN",
+              "SUBMIT",
+              "BLOCKED",
+              "APPROVE",
+              "SIGN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Action successfully fired",
+            "schema": {
+              "$ref": "#/definitions/GetDemand"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "404": {
+            "description": "demand not found",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/offer": {
+      "post": {
+        "summary": "Creates a new offer",
+        "description": "",
+        "operationId": "createOffer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "offer contents",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InsertUpdateOffer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "directSubmit",
+            "description": "the created offer will be directed submitted in case its valid",
+            "required": false,
+            "default": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "offer created",
+            "schema": {
+              "$ref": "#/definitions/ObjectId"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "405": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/offer/{id}": {
+      "put": {
+        "summary": "Update an existing offer",
+        "description": "",
+        "operationId": "updateOffer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Offer object that needs to be updated",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "demand contents",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InsertUpdateOffer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Offer updated"
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "404": {
+            "description": "demand not found",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    },
+    "/offer/{id}/state": {
+      "put": {
+        "summary": "Update an existing offer",
+        "description": "",
+        "operationId": "fire action on offer object",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "offer object that needs to be updated",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "description": "actions to be fired",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "CREATE",
+              "OPEN",
+              "SUBMIT",
+              "BLOCKED",
+              "APPROVE",
+              "SIGN"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Action successfully fired",
+            "schema": {
+              "$ref": "#/definitions/GetOffer"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "404": {
+            "description": "offer not found",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "$ref": "#/definitions/ApiErrorResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "ilv_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ilv_auth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "Project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "NOT_CREATED",
+            "OPENED",
+            "SUBMITTED",
+            "BLOCK",
+            "ACCEPTED"
+          ]
+        },
+        "task": {
+          "type": "string",
+          "description": "Show the global state of the demand/offer state",
+          "enum": [
+            "DEMAND_IN_PROGRESS",
+            "DEMAND_PUBLISHED",
+            "WAITING_FOR_OFFER",
+            "OFFER_IN_PROGRESS",
+            "OFFER_WAITING_FOR_ACCEPTANCE",
+            "REVIEW_PROPOSED_OFFER",
+            "OFFER_DENIED",
+            "OFFER_ACCEPTED"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "ownerOrganization": {
+          "$ref": "#/definitions/Organization"
+        },
+        "creator": {
+          "$ref": "#/definitions/User"
+        },
+        "budget": {
+          "type": "string"
+        }
+      }
+    },
+    "Projects": {
+      "type": "object",
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Project"
+          }
+        }
+      }
+    },
+    "InsertUpdateDemand": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "budget": {
+          "type": "string",
+          "description": "max 2 decimals precision"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "when projects ends DD.MM.YYYY"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "descriptionDocumentUrl": {
+          "type": "string"
+        },
+        "messageBoardUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "GetDemand": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/InsertUpdateDemand"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "creator": {
+              "$ref": "#/definitions/User"
+            },
+            "publisher": {
+              "$ref": "#/definitions/User"
+            },
+            "ownerOrg": {
+              "$ref": "#/definitions/Organization"
+            },
+            "creationTime": {
+              "type": "string",
+              "description": "Use date format, DD.MM.YYYY-HH:MM:SS"
+            },
+            "offers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GetOffer"
+              }
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "OPENED",
+                "SUBMITTED",
+                "ACCEPTED",
+                "BLOCKED",
+                "EXPIRED",
+                "REJECTED",
+                "COMPLETED",
+                "CLOSED"
+              ]
+            },
+            "allowedActions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "CREATE",
+                  "OPEN",
+                  "CLOSE",
+                  "SUBMIT",
+                  "BLOCKED",
+                  "APPROVE",
+                  "REJECT",
+                  "CORRECT",
+                  "ACCEPT",
+                  "REVOKE",
+                  "COMPLETE",
+                  "RESIGN"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "InsertUpdateOffer": {
+      "type": "object",
+      "properties": {
+        "demandId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Date when the contract/delivery (case that is signed) begins. Use date format, DD.MM.YYYY"
+        },
+        "deliveryDate": {
+          "type": "string",
+          "description": "Date when the contract (case that is signed) expires. Use date format, DD.MM.YYYY"
+        },
+        "contractType": {
+          "type": "string",
+          "enum": [
+            "SERVICE_CONTRACT",
+            "WORK_AND_SERVICE_CONTRACT",
+            "SUBSCRIPTION_CONTRACT"
+          ]
+        },
+        "targetAccount": {
+          "type": "string",
+          "description": "Show name is Zielkontierung"
+        },
+        "paymentType": {
+          "type": "string",
+          "enum": [
+            "MONTHLY",
+            "OBJECTIVE_ORIENTED"
+          ]
+        },
+        "price": {
+          "type": "string",
+          "description": "100.02 precision of 2 decimals"
+        },
+        "description": {
+          "type": "string"
+        },
+        "descriptionDocumentUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "GetOffer": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/InsertUpdateOffer"
+        },
+        {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "creator": {
+              "$ref": "#/definitions/User"
+            },
+            "ownerOrg": {
+              "$ref": "#/definitions/Organization"
+            },
+            "creationDate": {
+              "type": "string",
+              "description": "Use date format, DD.MM.YYYY-HH:MM:SS"
+            },
+            "messageBoardUrl": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string",
+              "enum": [
+                "OPENED",
+                "WAITING",
+                "APPROVED",
+                "OFFERED",
+                "ACCEPTED",
+                "EXPIRED",
+                "COMPLETED",
+                "REJECTED",
+                "CLOSED"
+              ]
+            },
+            "allowedActions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "OPEN",
+                  "SUBMIT",
+                  "ACCEPT",
+                  "REJECT",
+                  "APPROVE",
+                  "REVIEW",
+                  "CLOSE",
+                  "RESIGN",
+                  "REWORK",
+                  "COMPLETE",
+                  "REVOKE",
+                  "EXPIRE",
+                  "ACTIVATE"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "avatarImageSrc": {
+          "type": "string"
+        },
+        "organization": {
+          "$ref": "#/definitions/Organization"
+        }
+      }
+    },
+    "Organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "ObjectId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "HistorySection": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HistoryEntry"
+          }
+        }
+      }
+    },
+    "HistoryEntry": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/User"
+        },
+        "customCommentText": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "General documentation",
+    "url": "https://wiki.intranet.deutschebahn.com/wiki/display/blockchain/ILV+Development"
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence              http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="it-h2" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>de.deutschebahn.ilv.domain.Demand</class>
+        <class>de.deutschebahn.ilv.domain.Offer</class>
+        <class>de.deutschebahn.ilv.domain.Contract</class>
+        <class>de.deutschebahn.ilv.domain.MarketRole</class>
+        <class>de.deutschebahn.ilv.domain.AttachmentEntity</class>
+        <class>de.deutschebahn.ilv.domain.User</class>
+        <class>de.deutschebahn.ilv.domain.Organization</class>
+        <class>de.deutschebahn.ilv.bussinesobject.demand.DemandHistoryEntry</class>
+        <class>de.deutschebahn.ilv.domain.OfferHistoryEntry</class>
+        <class>de.deutschebahn.ilv.domain.ContractHistoryEntry</class>
+        <class>de.deutschebahn.ilv.domain.Delivery</class>
+        <class>de.deutschebahn.ilv.domain.DeliveryEntry</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

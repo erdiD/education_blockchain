@@ -1,0 +1,24 @@
+<app-project-header
+  [headerState]="projectHeaderState"
+  [title]="currentProject.demand.name"
+  [projectID]="currentProject.demand.id"
+  [projectPercentage]="getProjectPercentage()"
+  [tabList]="headerTabs"
+  (closeProject)="onFollowRouteRequest({target:$event, animateHeader:true})"
+  *ngIf="currentProject">
+</app-project-header>
+
+<router-outlet></router-outlet>
+
+<!--
+<div class="container projectContentContainer" [@projectContentState]="projectContentState" *ngIf="currentProject">
+  <div class="row">
+    <div class="col-md-12">
+      <app-project-entity
+        (followRoute)="onFollowRouteRequest($event)"
+        *ngFor="let projectEntity of projectEntities"
+        [projectEntity]="projectEntity"></app-project-entity>
+    </div>
+  </div>
+</div>
+-->

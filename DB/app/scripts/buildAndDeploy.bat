@@ -1,0 +1,1 @@
+build-ui.bat && deploy-rest-api-remote.bat

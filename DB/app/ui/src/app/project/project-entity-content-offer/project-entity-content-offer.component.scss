@@ -1,0 +1,37 @@
+@import '../../../styles/colors';
+@import '../../../styles/globalMixins';
+
+.UserAvatarRow p.Date {
+  float: left;
+  line-height: 70px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 20px;
+  font-size: 12px;
+  color: $lightBlue;
+  opacity: 0.6;
+}
+
+.DescriptionRow {
+  margin-top: 25px;
+}
+
+.AdditionalsRow {
+  margin-top: 40px;
+}
+
+.AdditionalsRow .leftAdditionSection {
+  padding-left: 0px;
+}
+
+.AdditionalsRow h4, .AdditionalsRow h5 {
+  line-height: 36px;
+  margin: 0px;
+}
+
+a{
+  color:white;
+}
+a:hover{
+  color:white;
+}

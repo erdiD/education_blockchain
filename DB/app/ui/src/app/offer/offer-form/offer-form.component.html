@@ -1,0 +1,266 @@
+<div class="container mainWrapper">
+  <form [formGroup]="form" autocomplete="off">
+    <div class="row offerViewWrapper">
+      <div class="col-md-3 leftSection">
+        <div class="row progress-step-type-icon">
+          <img
+            src="{{ projectEntityOffer?.typeIcon }}"
+            alt=""
+            *ngIf="projectEntityOffer">
+        </div>
+        <h2 *ngIf="projectEntityOffer">{{ projectEntityOffer?.typeTitleText }}</h2>
+        <div class="row offerDescriptionSection" *ngIf="currentProject && projectEntityOffer">
+          <div class="col-md-12">
+            <h3>Bedarf:</h3>
+            <div class="col-md-6 entry pull-left">
+              <p>Budget:</p>
+              <p>Zieltermin:</p>
+              <p>Priorität:</p>
+            </div>
+            <div class="col-md-6 value" *ngIf="currentProject.demand">
+              <p>{{currentProject?.demand?.budget || '-'}}</p>
+              <p>{{(currentProject?.demand?.endDate | date) || '-'}}</p>
+              <p *ngIf="currentProject?.demand?.priority === 'LOW'">Niedrig</p>
+              <p *ngIf="currentProject?.demand?.priority === 'MEDIUM'">Mittel</p>
+              <p *ngIf="currentProject?.demand?.priority === 'HIGH'">Hoch</p>
+            </div>
+            <div class="col-md-12 entry">
+              <h3 *ngIf="currentProject?.demand?.description!=undefined">Kurzbeschreibung:</h3>
+              <p *ngIf="currentProject?.demand?.description!=undefined">{{currentProject?.demand?.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 centerSection" *ngIf="projectEntityOffer">
+
+        <div class="row">
+          <app-user-avatar
+            [user]="projectEntityOffer?.creator"
+            [small]="true"
+            *ngIf="projectEntityOffer">
+          </app-user-avatar>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12 inputFields" *ngIf="currentProject && projectEntityOffer">
+
+            <!--<md-input-container class="full-width">
+              <input
+                mdInput
+                disabled
+                placeholder="Bedarfsträger"
+                [(ngModel)]="currentProject.creator"
+              >
+            </md-input-container>-->
+
+            <md-input-container class="full-width">
+              <input
+                mdInput
+                placeholder="Projekt-Name"
+                formControlName="name"
+                name="name"
+                [(ngModel)]="currentProject.name"
+              >
+            </md-input-container>
+
+            <md-input-container class="full-width">
+              <textarea
+                mdInput
+                mdTextareaAutosize = "true"
+                placeholder="Kurzbeschreibung"
+                formControlName="description"
+                name="description"
+                [(ngModel)]="projectEntityOffer.description"
+              ></textarea>
+            </md-input-container>
+
+            <!--<md-input-container class="half-width">-->
+              <!--<input-->
+                <!--mdInput-->
+                <!--formControlName="document"-->
+                <!--name="document"-->
+                <!--[placeholder]="'Angebots-Spezifikationen'"-->
+              <!--&gt;-->
+            <!--</md-input-container>-->
+
+            <div class="row uploadArea">
+              <div class="col-md-12">
+                <h3>Anhänge</h3>
+                <app-file-upload-area
+                  [projectEntity]="projectEntityOffer"
+                  [apiEndPoint] = "apiEndPointUpload"
+                ></app-file-upload-area>
+              </div>
+            </div>
+
+
+            <hr class="lightBlue-border" style=""/><br/>
+
+            <!--<md-input-container class="full-width">
+              <input
+                mdInput
+                placeholder="Start-Datum"
+                formControlName="duration"
+                name="duration"
+                [(ngModel)]="projectEntityOffer.startDate"
+              >
+              <md-error align="end">Pflichtfeld</md-error>
+            </md-input-container>-->
+
+            <!--Backup-->
+            <!--<md-input-container class="half-width">-->
+              <!--<input-->
+                <!--[(ngModel)]="projectEntityOffer.startDate"-->
+                <!--mdInput-->
+                <!--name="startDatePickerInput"-->
+                <!--formControlName="startDate"-->
+                <!--[mdDatepicker]="startDatePicker"-->
+                <!--placeholder="Start-Datum">-->
+              <!--<md-error align="end">Pflichtfeld</md-error>-->
+              <!--<button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>-->
+            <!--</md-input-container>-->
+            <!--<md-datepicker [startAt]="projectEntityOffer.startDate || calendarStartDate" touchUi="true" #startDatePicker></md-datepicker>-->
+
+            <md-input-container class="half-width">
+              <input #dpstart
+                mdInput
+                [(ngModel)]="projectEntityOffer.startDate"
+                name="startDatePickerInput"
+                formControlName="startDate"
+                [mdDatepicker]="startDatePicker"
+                (ngModelChange)="onStartDateInputChange(dpstart.value)"
+                placeholder="Start-Datum">
+              <md-error align="end">Pflichtfeld</md-error>
+              <button mdSuffix [mdDatepickerToggle]="startDatePicker"></button>
+            </md-input-container>
+            <md-datepicker [startAt]="projectEntityOffer.startDate || calendarStartDate" touchUi="true" #startDatePicker></md-datepicker>
+
+           <!-- <md-input-container class="full-width">
+              <input
+                mdInput
+                placeholder="Auslieferung"
+                formControlName="availability"
+                name="availability"
+                [(ngModel)]="projectEntityOffer.endDate"
+              >
+              <md-error align="end">Pflichtfeld</md-error>
+            </md-input-container>-->
+
+            <!-- Backup-->
+            <!--<md-input-container class="half-width">-->
+              <!--<input-->
+                <!--[(ngModel)]="projectEntityOffer.endDate"-->
+                <!--mdInput-->
+                <!--name="endDatePickerInput"-->
+                <!--formControlName="endDate"-->
+                <!--[mdDatepicker]="endDatePicker"-->
+                <!--placeholder="Auslieferung">-->
+              <!--<md-error align="end">Pflichtfeld</md-error>-->
+              <!--<button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>-->
+            <!--</md-input-container>-->
+            <!--<md-datepicker [startAt]="projectEntityOffer.endDate || calendarStartDate" touchUi="true" #endDatePicker></md-datepicker>-->
+
+
+            <md-input-container class="half-width">
+              <input #dpend
+                [(ngModel)]="projectEntityOffer.endDate"
+                mdInput
+                name="endDatePickerInput"
+                formControlName="endDate"
+                [mdDatepicker]="endDatePicker"
+                (ngModelChange)="onEndDateInputChange(dpend.value)"
+                placeholder="Auslieferung">
+              <md-error align="end">Pflichtfeld</md-error>
+              <button mdSuffix [mdDatepickerToggle]="endDatePicker"></button>
+            </md-input-container>
+            <md-datepicker [startAt]="projectEntityOffer.endDate || calendarStartDate" touchUi="true" #endDatePicker></md-datepicker>
+
+            <md-input-container class="full-width">
+              <input
+                mdInput
+                placeholder="Preis (in Euro)"
+                formControlName="price"
+                name="price"
+                [(ngModel)]="projectEntityOffer.price"
+              >
+              <md-error align="end">{{ form?.controls?.price?.errors && form?.controls?.price?.errors?.pattern ? 'Bitte nur Zahlen eingeben' : 'Pflichfeld' }}</md-error>
+            </md-input-container>
+
+
+            <h4 class="contractTypeLabel full-width pull-left">Vertrags-Typ</h4>
+            <md-radio-group formControlName="contractType" name="contractType"
+                            class="contractTypeRadioGroup full-width pull-left" [(ngModel)]="projectEntityOffer.contractType">
+              <md-radio-button class="contractTypeRadioBtn" value="SERVICE_CONTRACT">Dienstvertrag</md-radio-button>
+              <md-radio-button class="contractTypeRadioBtn" value="WORK_AND_SERVICE_CONTRACT">Werkvertrag</md-radio-button>
+              <md-radio-button class="contractTypeRadioBtn" value="SUBSCRIPTION_CONTRACT">Leistungsschein</md-radio-button>
+
+            </md-radio-group>
+
+            <h4 class="paymentTypeLabel full-width pull-left">Zahlungsmodalitäten</h4>
+            <md-radio-group formControlName="paymentType" name="paymentType"
+                            class="paymentTypeRadioGroup full-width pull-left" [(ngModel)]="projectEntityOffer.paymentType">
+              <md-radio-button class="paymentTypeRadioBtn" value="MONTHLY"
+                               [disabled]="isDisabledForPaymentType('MONTHLY')">Monatlich</md-radio-button>
+
+              <md-radio-button class="paymentTypeRadioBtn" value="OBJECTIVE_ORIENTED"
+                               *ngIf="isDisabledForPaymentType('OBJECTIVE_ORIENTED') !== null"
+                               [disabled]="isDisabledForPaymentType('OBJECTIVE_ORIENTED')">
+                                Meilenstein-Plan</md-radio-button>
+
+              <md-radio-button class="paymentTypeRadioBtn" value="ANNUALLY"
+                               *ngIf="isDisabledForPaymentType('ANNUALLY') !== null"
+                               [disabled]="isDisabledForPaymentType('ANNUALLY')">Jährlich</md-radio-button>
+
+              <md-radio-button class="paymentTypeRadioBtn" value="PAYMENTSCHEDULE"
+                               *ngIf="isDisabledForPaymentType('ANNUALLY') !== null"
+                               [disabled]="isDisabledForPaymentType('PAYMENTSCHEDULE')">Zahlplan</md-radio-button>
+
+            </md-radio-group>
+
+          </div>
+        </div>
+        <div class="row bottomButtonSection">
+          <app-standard-button-dbilv
+            (click)="onCloseClick($event)"
+            title="Abbrechen"
+            buttonType="normal"
+            class="pull-left btnCancel">
+          </app-standard-button-dbilv>
+
+          <app-standard-button-dbilv
+            #self
+            (click)="laddaIntercept(self, onSaveOfferClick)"
+            *ngIf="isNewOffer || projectEntityOffer.state === States.OFFER_OPENED"
+            title="Speichern"
+            buttonType="light"
+            class="pull-left btnSend">
+          </app-standard-button-dbilv>
+
+         <!-- <app-standard-butprojectEntityOffer     (click)="isNewOfferprojectEntityOfferStep.state === ProgressStepOffer.OFFER_STATE_OPEN ? onSubmitOfferClick($event) : onEditOfferClick($event)"
+            [title]="isNewOffer || offerProgressStep.state === ProgressStepOffer.OFFER_STATE_OPEN ? 'absenden' : 'aktualisieren'"
+            buttonType="secondary"
+            class="pull-right btnSend">
+          </app-standard-button-dbilv>-->
+
+          <!--SUBMIT OFFER BUTTON-->
+          <app-standard-button-dbilv
+            #self
+            *ngIf="currentProject?.demand?.availableActions.indexOf(Actions.SUBMIT_OFFER) != -1 || ( projectEntityOffer?.availableActions &&  projectEntityOffer?.availableActions?.indexOf(Actions.SUBMIT_OFFER) != -1) "
+            class="pull-right"
+            title="Angebot veröffentlichen"
+            buttonType="secondary"
+            (click)="laddaIntercept(self, onSubmitOfferClick)">
+          </app-standard-button-dbilv>
+
+        </div>
+
+
+      </div>
+      <div class="col-md-2 rightSection">
+
+      </div>
+
+    </div>
+  </form>
+</div>

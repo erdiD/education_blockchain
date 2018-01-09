@@ -1,0 +1,154 @@
+@import '../../../styles/colors';
+@import '../../../styles/globalMixins';
+
+.mainWrapper {
+  @include border-radius(1pt);
+  border-bottom: 6px solid $projectViewProgressBorderLineColor;
+  overflow: hidden;
+
+  background-color: $projectViewProgressViewBackgroundMainColor;
+  margin-bottom: 25px;
+}
+
+.offerViewWrapper {
+  @include display-flex();
+  padding-top: 25px;
+  padding-bottom: 25px;
+  position: relative;
+}
+
+.leftSection {
+  position: relative;
+  border-right: 1px solid $projectViewProgressBorderLineColor;
+  padding-right: 20px;
+  margin-right: 20px;
+}
+
+.offerDescriptionSection{
+  margin-top:50px;
+}
+
+.offerDescriptionSection p{
+  line-height: 20px;
+}
+
+.progress-step-type-icon {
+  position: relative;
+  /* background-color: rgba(40, 215, 255, 0.055); */
+  height: 105px;
+  margin-top: -15px;
+  margin-left: -15px;
+  margin-right: -20px;
+}
+
+.progress-step-type-icon img {
+  width: 105px;
+  height: 105px;
+  position: absolute;
+  left: 50%;
+  margin-left: -52px;
+}
+
+h2 {
+  width: 100%;
+  font-family: $dbOfficeRegular;
+  text-align: center;
+  margin: 5px 0 0 2px;
+  color: $lightBlue;
+  font-size: 20px;
+  letter-spacing: 0.7pt;
+  /* text-transform: uppercase; */
+}
+
+.offerDescriptionSection p, .offerDescriptionSection .entry{
+  padding-left:0px;
+  float:left;
+}
+
+.offerDescriptionSection .value{
+  font-family: $dbOfficeBold;
+}
+
+.contractTypeRadioBtn, .paymentTypeRadioBtn{
+  margin-right:10px;
+}
+
+.contractTypeLabel{
+  margin-top: 35px;
+}
+
+.paymentTypeLabel{
+  margin-top:10px;
+}
+
+.contractTypeLabel, .paymentTypeLabel{
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+.contractTypeRadioGroup, .paymentTypeRadioGroup{
+  margin-bottom: 25px;
+}
+
+md-input-container textarea{
+  min-height:150px;
+}
+
+md-input-container, md-select{
+  float:left;
+  font-family: $dbOfficeRegular;
+  font-size:16px;
+  letter-spacing: 0.05em;
+}
+
+md-select{
+  margin-top:5px;
+  margin-bottom:25px;
+}
+
+app-standard-button-dbilv{
+}
+
+.uploadBtn{
+  float:left;
+  margin-left: 15px;
+}
+
+.btnSend{
+  margin-left:25px;
+}
+
+
+
+.isDraftSection{
+  margin-bottom:25px;
+}
+
+.bottomButtonSection{
+  padding-left:47px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.example-form {
+  width: 500px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 55%;
+}
+
+
+.inputFields{
+  padding:47px;
+}
+
+
+.inputFields md-input-container{
+  margin-bottom: 15px;
+}
+

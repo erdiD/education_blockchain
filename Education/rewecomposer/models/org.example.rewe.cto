@@ -1,0 +1,64 @@
+/**
+ * Write your model definitions here
+ */
+
+namespace org.example.rewe
+
+enum Status {
+  o RAWMATERIAL
+  o IN_PRODUCTION
+  o IN_PRINTING
+  o IN_SHIPPING
+  o IN_DELIVERY
+  o IN_SELL
+  o SOLD
+}
+
+asset Bag identified by bagID {
+  o String bagID
+  o String chargeID
+  o String material
+  o Status status
+  --> Member owner
+  o Route[] route
+  o Siggel[] siggel
+}
+
+participant Company identified by compID {
+  o String compID
+  o String name
+  o String logo
+  o String description
+  o String city
+  --> Member[] member
+}
+
+participant Member identified by memID {
+  o String memID
+  o String foto
+  o String name
+}
+
+participant Certifier identified by sigID {
+  o String sigID
+  o String name
+  o String logo
+  o String renewal
+  o String claims
+  o String method
+}
+
+transaction Siggel {
+  --> Certifier siggel
+  --> Company company
+  --> Bag bag
+}
+
+transaction Route {
+  --> Company carrier
+  --> Member cmem
+  --> Company to
+  --> Member tmem
+  o Status status
+  --> Bag bag
+}

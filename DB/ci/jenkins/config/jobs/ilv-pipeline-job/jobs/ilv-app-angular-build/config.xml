@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition plugin="git-parameter@0.8.1">
+          <name>GITTAG</name>
+          <description></description>
+          <uuid>6f1c89fe-b85f-4485-bbcf-93bb0a5ea983</uuid>
+          <type>PT_TAG</type>
+          <branch></branch>
+          <tagFilter>*</tagFilter>
+          <branchFilter>.*</branchFilter>
+          <sortMode>NONE</sortMode>
+          <defaultValue></defaultValue>
+          <selectedValue>NONE</selectedValue>
+          <quickFilterEnabled>false</quickFilterEnabled>
+        </net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.4.8">
+      <gitLabConnection>ilv-app</gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <refspec>+refs/tags/*:refs/remotes/origin/tags/*</refspec>
+        <url>${APPGIT}</url>
+        <credentialsId>f0641b44-a387-4586-81b2-0e1cb1ece77e</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>tags/${GITTAG}</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#Clone CI scripts from git
+mkdir -p ci &amp;&amp; git clone ${CIGIT} ci
+cp -r ci/ui/* ui/ &amp;&amp; cd ${WORKSPACE}/ui &amp;&amp; mkdir -p ${WORKSPACE}/built
+sudo docker build -t ${DOCKERREG}/ilv-app-angular:${GITTAG} ${WORKSPACE}/ui
+sudo docker run -v ${WORKSPACE}/built:/usr/src/app/built ${DOCKERREG}/ilv-app-angular:${GITTAG} /bin/sh -c &apos;$(npm bin)/ng build --base-href /ilv/app/ --aot &amp;&amp; cp -r dist built/&apos;
+sudo docker commit $(sudo docker ps -l --format=&quot;{{.ID}}&quot;) ${DOCKERREG}/ilv-app-angular:${GITTAG}
+sudo docker push ${DOCKERREG}/ilv-app-angular:${GITTAG}
+
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.35.2">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              <properties>GITTAG=${GITTAG}</properties>
+              <textParamValueOnNewLine>false</textParamValueOnNewLine>
+            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+          </configs>
+          <projects>ilv-app-build,</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <triggerFromChildProjects>false</triggerFromChildProjects>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+    <hudson.plugins.ws__cleanup.WsCleanup plugin="ws-cleanup@0.34">
+      <patterns class="empty-list"/>
+      <deleteDirs>false</deleteDirs>
+      <skipWhenFailed>false</skipWhenFailed>
+      <cleanWhenSuccess>true</cleanWhenSuccess>
+      <cleanWhenUnstable>true</cleanWhenUnstable>
+      <cleanWhenFailure>true</cleanWhenFailure>
+      <cleanWhenNotBuilt>true</cleanWhenNotBuilt>
+      <cleanWhenAborted>true</cleanWhenAborted>
+      <notFailBuild>false</notFailBuild>
+      <cleanupMatrixParent>false</cleanupMatrixParent>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.WsCleanup>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-12">
+    <img *ngIf="modalType.iconUrl" src="{{modalType.iconUrl}}" class="modalIcon">
+    <h2 class="title" md-dialog-title>{{modalType.titleText}}</h2>
+  </div>
+</div>
+<md-dialog-content>
+    <div class="row">
+      <div class="col-md-12 commentInputCol">
+        <p *ngIf="modalType.dialogText">{{modalType.dialogText}}</p>
+        <div *ngIf="modalType.commentFieldText" class="inputWrapper">
+          <app-user-avatar [user]="authService.loggedUser" small="true" showName="false"></app-user-avatar>
+          <md-input-container class="commentInputContainer">
+            <input
+              mdInput
+              name="commentFieldInput"
+              [placeholder]="modalType.commentFieldText"
+              [(ngModel)]="modalType.userInputText">
+          </md-input-container>
+        </div>
+
+      </div>
+    </div>
+</md-dialog-content>
+<md-dialog-actions class="buttonSection">
+  <app-standard-button-dbilv class="acceptButton pull-right" (click)="onAcceptModalClick($event)" buttonType="secondary" [title]="modalType.acceptButtonText"></app-standard-button-dbilv>
+  <app-standard-button-dbilv *ngIf="!modalType.hideAbortButton" class="rejectButton pull-right" (click)="onCloseModalClick($event)" title="Abbrechen"></app-standard-button-dbilv>
+</md-dialog-actions>

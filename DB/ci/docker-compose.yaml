@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  registry:
+    container_name: ilv_registry
+    restart: always
+    image: registry:latest
+    volumes:
+      - ~/docker-registry-data:/var/lib/registry
+    networks:
+      ilv_net:
+        ipv4_address: 192.168.200.5
+    ports:
+      - "9100:5000"
+
+  jenkins:
+    restart: always
+    container_name: ilv_jenkins
+    build: ./jenkins
+    volumes:
+      - ./jenkins/home:/var/jenkins_home
+      - ./jenkins/.ssh:/var/jenkins_home/.ssh
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/bin/docker
+    networks:
+      ilv_net:
+        ipv4_address: 192.168.200.6
+    ports:
+      - "9090:8080"
+      - "50000:50000"
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - APPGIT=ssh://git@matilda.dbe.aws.db.de:10022/ilv/ilv.git
+      - CIGIT=ssh://git@matilda.dbe.aws.db.de:10022/ilv/ci.git
+      - CCGIT=ssh://git@matilda.dbe.aws.db.de:10022/ilv/chaincode.git
+      - DOCKERREG=melanie.dbe.aws.db.de:9100
+      - FABRICJAVASDKGIT=ssh://git@matilda.dbe.aws.db.de:10022/ilv/fabric-sdk-java.git
+networks:
+  ilv_net:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.200.0/24
+         gateway: 192.168.200.1

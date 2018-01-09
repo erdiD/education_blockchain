@@ -1,0 +1,194 @@
+@import '../../../styles/colors';
+@import '../../../styles/globalMixins';
+
+.mainProjectHeader {
+  //@include shadow(0px, 8px, 31px, 0px, rgba(0, 0, 0, 0.25));
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 0;
+  height: 110px;
+  position:absolute;
+  top:0px;
+}
+
+.mainProjectHeader.collapsed{
+  @include shadow(0px, 8px, 31px, 0px, rgba(0, 0, 0, 0.25));
+}
+
+.mainProjectHeader.animate{
+  @include animateTransition(all, 0.65s, $easeOutSine);
+}
+
+.mainProjectHeader.hideTop{
+  top:-110px;
+  opacity:0;
+}
+
+.mainProjectHeader.collapsed{
+  /*
+  @include animateTransition(all, 0.9s, $easeInOutSine);
+  */
+  position:fixed;
+  height: 50px;
+}
+
+.mainProjectHeader.collapsed h1{
+  position:relative;
+  float:left;
+  top:0px;
+  line-height:50px;
+  font-size: 22px;
+}
+
+.mainProjectHeader.animate h1{
+  @include animateTransition(all, 0.9s, $easeOutSine);
+}
+
+.mainProjectHeader.collapsed .firstBackground{
+  background-color: $projectHeaderMainBackgroundColor;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.mainProjectHeader.collapsed .secondBackground{
+  @include linearGradient(0%, 100%, 0.95, 0.8);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.firstBackground {
+  /*background-color: $projectHeaderMainBackgroundColor;
+  position: absolute;
+  width: 100%;
+  height: 100%;*/
+}
+
+.secondBackground {
+/*  @include linearGradient(0%, 100%, 0.95, 0.8);
+  position: absolute;
+  width: 100%;
+  height: 100%;*/
+}
+
+h1 {
+  /*@include text-double-shadow(0px,2px,4px,rgba(0,0,0,0.5),  0px,0px,7px,$headerLightBlueShadowColor);*/
+  font-style: normal;
+  float: left;
+}
+
+h1.headerTitle {
+  position: absolute;
+  margin: 0px;
+  //left:110px;
+  top: 22px;
+}
+
+h1.headerTitle.noSubheadline{
+  top:30px;
+}
+
+h3 {
+  letter-spacing: 0.02em;
+}
+
+img.projectTypeIcon {
+  position: absolute;
+  top: 22px;
+  width: 75px;
+  height: auto;
+}
+
+.collapsed h3.processID{
+  float: left;
+  position: relative;
+  top: 18px;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+h3.processID {
+  //@include text-shadow(0px, 2px, 4px, rgba(0,0,0,0.5));
+  position: absolute;
+  //left:110px;
+  top: 75px;
+  margin: 0px;
+  color: $lightBlue;
+  font-size: 16px;
+  font-family: $dbOfficeRegular;
+
+}
+
+h3.processID .processID {
+  color: $white;
+}
+
+.closeBtn {
+  @include animateTransition(all, 0.5s, $easeInOutQuint);
+  position: absolute;
+  top: 17px;
+  right: -15px;
+  cursor: pointer;
+  width:70px;
+  height: 70px;
+}
+
+.closeBtn:hover{
+  background-color:rgba(40, 215, 255, 0.055);
+}
+
+.closeBtn img {
+  @include absoluteCenter(50px, 50px);
+  width: 50px;
+  height: auto;
+}
+
+.collapsed .closeBtn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width:50px;
+  height:50px;
+  cursor: pointer;
+}
+
+.collapsed .closeBtn img {
+  @include absoluteCenter(45px, 45px);
+  width: 45px;
+  height: auto;
+}
+
+.progressBar {
+  @include animateTransition(all, 0.5s, $easeInOutQuint);
+  position: absolute;
+  bottom: 0px;
+  height: 2px;
+  background-color: $lightBlue;
+}
+
+app-project-header-tab{
+  position:relative;
+  float: left;
+  margin-top: 32px;
+}
+
+.collapsed app-project-header-tab{
+  margin-top:5px;
+}
+
+
+.tabButton{
+  overflow: hidden;
+}
+
+.tabButton:first-of-type{
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.tabButton:last-of-type{
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+

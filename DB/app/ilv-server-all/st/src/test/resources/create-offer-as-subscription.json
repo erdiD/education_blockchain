@@ -1,0 +1,11 @@
+{
+  "description": "description test",
+  "price": "1.34",
+  "messageBoardUrl": "htpp://sads",
+  "runningTime": "324",
+  "availability": "dwe",
+  "contractType": "SUBSCRIPTION_CONTRACT",
+  "paymentType":"MONTHLY",
+  "startDate":"01.01.2017",
+  "deliveryDate":"11.11.2017"
+}

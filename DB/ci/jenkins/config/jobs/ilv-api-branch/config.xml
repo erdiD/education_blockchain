@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset plugin="maven-plugin@2.17">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition plugin="git-parameter@0.8.1">
+          <name>GitBranch</name>
+          <description></description>
+          <uuid>eb5c29e3-f3cd-42af-abbf-da8c6d6e6a5a</uuid>
+          <type>PT_BRANCH</type>
+          <branch></branch>
+          <tagFilter>*</tagFilter>
+          <branchFilter>.*</branchFilter>
+          <sortMode>NONE</sortMode>
+          <defaultValue></defaultValue>
+          <selectedValue>NONE</selectedValue>
+          <quickFilterEnabled>false</quickFilterEnabled>
+        </net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DockerTag</name>
+          <description>Tag for Docker image </description>
+          <defaultValue>v0.0.7</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>${APPGIT}</url>
+        <credentialsId>f0641b44-a387-4586-81b2-0e1cb1ece77e</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>${GitBranch}</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <rootModule>
+    <groupId>de.deutschebahn.ilv</groupId>
+    <artifactId>rest-api</artifactId>
+  </rootModule>
+  <rootPOM>ilv-server-all/rest-api/pom.xml</rootPOM>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <ignoreUpstremChanges>true</ignoreUpstremChanges>
+  <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+  <archivingDisabled>false</archivingDisabled>
+  <siteArchivingDisabled>false</siteArchivingDisabled>
+  <fingerprintingDisabled>false</fingerprintingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <runHeadless>false</runHeadless>
+  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+  <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+  <reporters/>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+  <prebuilders>
+    <hudson.tasks.Shell>
+      <command>
+</command>
+    </hudson.tasks.Shell>
+  </prebuilders>
+  <postbuilders>
+    <hudson.tasks.Shell>
+      <command>mkdir -p ci &amp;&amp; git clone ${CIGIT} ci
+cp -r ${WORKSPACE}/ci/server/* ${WORKSPACE}/ilv-server-all/rest-api/target/
+cd ${WORKSPACE}/ilv-server-all/rest-api/target/
+sudo docker build -t ${DOCKERREG}/ilv-app:${DockerTag} .
+sudo docker push ${DOCKERREG}/ilv-app:${DockerTag}</command>
+    </hudson.tasks.Shell>
+  </postbuilders>
+  <runPostStepsIfResult>
+    <name>SUCCESS</name>
+    <ordinal>0</ordinal>
+    <color>BLUE</color>
+    <completeBuild>true</completeBuild>
+  </runPostStepsIfResult>
+</maven2-moduleset>

@@ -1,0 +1,30 @@
+<app-project-header
+  [headerState]="offerHeaderState"
+  [title]="headerTitle"
+  [projectID]="headerVorgangsnummer"
+  [projectPercentage]="0"
+  (closeProject)="onCloseOfferClicked()"
+  *ngIf="isNewOffer">
+</app-project-header>
+
+<div class="container demandContentContainer" [ngStyle]="{'margin-top': isNewOffer ? '150px' : '30px'}"
+     [@offerContentState]="offerContentState">
+  <div class="row backToProjectHeader" *ngIf="!isNewOffer">
+    <div class="col-md-12">
+      <div class="backBtn" (click)="onCloseOfferClicked()">
+        <img src="assets/img/icons/icon_Back.png" alt="Zurück">
+      </div>
+      <h2>{{ headerTitle }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-offer-form-component *ngIf="projectEntityOffer"
+                                [projectEntityOffer]="projectEntityOffer"
+                                [currentProject]="currentProject"
+                                [isNewOffer]="isNewOffer"
+                                (closeProject)= "onCloseOfferClicked()">
+      </app-offer-form-component>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="row uploadArea" *ngIf="projectEntity">
+  <div class="row heading" *ngIf="attachmentUploader && attachmentUploader.queue.length > 0">
+    <div class="col-md-5"><h3>Dateiname</h3></div>
+    <div class="col-md-3"><h3>Größe</h3></div>
+    <div class="col-md-3"><h3>Typ</h3></div>
+  </div>
+
+<!--  <div class="row heading">
+    <div class="col-md-12"><h3>Für Upload ausgewählt</h3></div>
+  </div>-->
+
+  <div class="row attachmentFile onServer"  *ngFor="let attachment of projectEntity?.attachments">
+    <div class="" *ngFor="let fileData of attachment | jsonObject">
+      <div class="col-md-5 fileName" [title]="fileData?.value[0]?.fileId">
+        {{fileData?.key}}
+      </div>
+      <div class="col-md-3 fileSize">{{ fileData?.value[0]?.size | fileSize }}</div>
+      <div class="col-md-2 fileType">{{ fileData?.key | fileName }}</div>
+      <div class="col-md-2 fileActions">
+        <img src="assets/img/icons/smallIcons_64x64/icon_small_trash.png"
+             class="delete"
+             alt="Bereits synchronisierte Dateien können nicht mehr gelöscht werden"
+             title="Bereits synchronisierte Dateien können nicht mehr gelöscht werden"
+        >
+        <a href="{{getDownloadUrl(fileData?.value[0]?.fileId)}}">
+          <img src="assets/img/icons/smallIcons_64x64/icon_small_download.png"
+               class="download"
+               alt="Datei herunterladen"
+               title="Datei herunterladen"
+          (click)="downloadFile(file)">
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="margin-top-2" *ngIf="attachmentUploader.queue.length > 0"></div>
+
+  <div class="row attachmentFile " *ngFor="let file of attachmentUploader.queue">
+    <div class="col-md-5 fileName" (click)="onItemInformationClick(file)" [title]="file.some.name">
+      {{file.some.name.length > 25 ? file.some.name.substring(0,25) + " ..." : file.some.name}}
+    </div>
+    <div class="col-md-3 fileSize">{{ file.some.size | fileSize }}</div>
+    <div class="col-md-2 fileType">{{ file.some.type | fileName }}</div>
+    <div class="col-md-2 fileActions">
+      <img src="assets/img/icons/smallIcons_64x64/icon_small_trash.png"
+           class="delete"
+           alt="Datei entfernen"
+           title="Datei entfernen"
+           (click)="deleteFileFromUploaderQueue(file)">
+    </div>
+  </div>
+
+  <input class="fileInput" type="file" ng2FileSelect multiple [uploader]="attachmentUploader" #fileInputHiddenInput/>
+  <app-standard-button-dbilv
+    class="addFileBtn pull-left"
+    title="Datei hinzufügen"
+    buttonType="light"
+    (click)="fileInputHiddenInput.click()"
+  ></app-standard-button-dbilv>
+</div>

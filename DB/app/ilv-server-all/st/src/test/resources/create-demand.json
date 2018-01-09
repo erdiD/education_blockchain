@@ -1,0 +1,9 @@
+{
+  "name": "Ein neues Projekt",
+  "budget": "40000",
+  "priority": "high",
+  "description": "Beschreibungstext",
+  "messageBoardUrl": "https://db-planet.deutschebahn.com/home",
+  "targetAccount": "DE44500105175407324931",
+  "endDate": "25.11.2017"
+}

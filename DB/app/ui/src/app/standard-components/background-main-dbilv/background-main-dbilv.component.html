@@ -1,0 +1,17 @@
+<div class="backgroundWrapper">
+  <div class="backgroundGradient"></div>
+  <div class="backgroundPolygonWrapper" [ngClass]="isInFlashMode ? 'fastTransition' : 'slowTransition'">
+    <div class="polygon pol1" #pol1
+         [ngStyle]="{'left': polygons[0].left, 'top': polygons[0].top, 'transform': polygons[0].scale, 'opacity': polygons[0].opacity}"></div>
+    <div class="polygon pol2" #pol2
+         [ngStyle]="{'left': polygons[1].left, 'top': polygons[1].top, 'transform': polygons[1].scale, 'opacity': polygons[1].opacity}"></div>
+    <div class="polygon pol3" #pol3
+         [ngStyle]="{'left': polygons[2].left, 'top': polygons[2].top, 'transform': polygons[2].scale, 'opacity': polygons[2].opacity}"></div>
+    <div class="polygon pol1" #pol4
+         [ngStyle]="{'left': polygons[3].left, 'top': polygons[3].top, 'transform': polygons[3].scale, 'opacity': polygons[3].opacity}"></div>
+    <div class="polygon pol3" #pol5
+         [ngStyle]="{'left': polygons[4].left, 'top': polygons[4].top, 'transform': polygons[4].scale, 'opacity': polygons[4].opacity}"></div>
+    <div class="polygon pol2" #pol6
+         [ngStyle]="{'left': polygons[5].left, 'top': polygons[5].top, 'transform': polygons[5].scale, 'opacity': polygons[5].opacity}"></div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>${APPGIT}</url>
+        <credentialsId>f0641b44-a387-4586-81b2-0e1cb1ece77e</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>rm -fr ci ui/built
+mkdir -p ci &amp;&amp; git clone ${CIGIT} ci
+cp -r ci/ui/* ui/ &amp;&amp; cd ${WORKSPACE}/ui &amp;&amp; mkdir -p ${WORKSPACE}/built
+sudo docker build -t angularbuilder ${WORKSPACE}/ui
+sudo docker tag angularbuilder ${DOCKERREG}/ilv-app-angular
+sudo docker run -v /home/youssef/jenkins_home_testnow/jobs/ilv-app-angular-build/workspace/built:/usr/src/app/built ${DOCKERREG}/ilv-app-angular /bin/sh -c &apos;$(npm bin)/ng build --base-href /ilv/app/ --prod --aot  &amp;&amp; cp -r dist built/&apos;
+sudo docker commit $(sudo docker ps -l --format=&quot;{{.ID}}&quot;) ${DOCKERREG}/ilv-app-angular
+sudo docker push ${DOCKERREG}/ilv-app-angular
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

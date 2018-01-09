@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer plugin="resource-disposer@0.8">
+  <id>AsyncResourceDisposer</id>
+  <backlog class="java.util.Collections$SetFromMap" serialization="custom">
+    <unserializable-parents/>
+    <java.util.Collections_-SetFromMap>
+      <default>
+        <m class="concurrent-hash-map">
+          <entry>
+            <org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+              <disposer reference="../../../../../../.."/>
+              <disposable class="hudson.plugins.ws_cleanup.Wipeout$DisposableImpl" plugin="ws-cleanup@0.34">
+                <node></node>
+                <path>/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508751814965</path>
+              </disposable>
+              <registered>2017-10-23 09:43:34.965 UTC</registered>
+              <disposableInfo>hudson.plugins.ws_cleanup.Wipeout$DisposableImpl:Workspace master:/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508751814965</disposableInfo>
+            </org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+              <disposer reference="../../../../../../.."/>
+              <disposable class="hudson.plugins.ws_cleanup.Wipeout$DisposableImpl" plugin="ws-cleanup@0.34">
+                <node></node>
+                <path>/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508773892333</path>
+              </disposable>
+              <registered>2017-10-23 15:51:32.334 UTC</registered>
+              <disposableInfo>hudson.plugins.ws_cleanup.Wipeout$DisposableImpl:Workspace master:/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508773892333</disposableInfo>
+            </org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+              <disposer reference="../../../../../../.."/>
+              <disposable class="hudson.plugins.ws_cleanup.Wipeout$DisposableImpl" plugin="ws-cleanup@0.34">
+                <node></node>
+                <path>/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1507737799529</path>
+              </disposable>
+              <registered>2017-10-11 16:03:19.529 UTC</registered>
+              <disposableInfo>hudson.plugins.ws_cleanup.Wipeout$DisposableImpl:Workspace master:/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1507737799529</disposableInfo>
+            </org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+              <disposer reference="../../../../../../.."/>
+              <disposable class="hudson.plugins.ws_cleanup.Wipeout$DisposableImpl" plugin="ws-cleanup@0.34">
+                <node></node>
+                <path>/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508861882029</path>
+              </disposable>
+              <registered>2017-10-24 16:18:02.29 UTC</registered>
+              <disposableInfo>hudson.plugins.ws_cleanup.Wipeout$DisposableImpl:Workspace master:/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508861882029</disposableInfo>
+            </org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+              <disposer reference="../../../../../../.."/>
+              <disposable class="hudson.plugins.ws_cleanup.Wipeout$DisposableImpl" plugin="ws-cleanup@0.34">
+                <node></node>
+                <path>/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508833186758</path>
+              </disposable>
+              <registered>2017-10-24 08:19:46.760 UTC</registered>
+              <disposableInfo>hudson.plugins.ws_cleanup.Wipeout$DisposableImpl:Workspace master:/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508833186758</disposableInfo>
+            </org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+              <disposer reference="../../../../../../.."/>
+              <disposable class="hudson.plugins.ws_cleanup.Wipeout$DisposableImpl" plugin="ws-cleanup@0.34">
+                <node></node>
+                <path>/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508746703800</path>
+              </disposable>
+              <registered>2017-10-23 08:18:23.806 UTC</registered>
+              <disposableInfo>hudson.plugins.ws_cleanup.Wipeout$DisposableImpl:Workspace master:/var/jenkins_home/jobs/ilv-pipeline-job/jobs/ilv-app-build/workspace_ws-cleanup_1508746703800</disposableInfo>
+            </org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer_-WorkItem>
+            <boolean>true</boolean>
+          </entry>
+        </m>
+      </default>
+    </java.util.Collections_-SetFromMap>
+  </backlog>
+</org.jenkinsci.plugins.resourcedisposer.AsyncResourceDisposer>

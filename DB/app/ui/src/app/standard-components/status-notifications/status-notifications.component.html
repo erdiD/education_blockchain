@@ -1,0 +1,7 @@
+<div class="statusNotificationMainWrapper" *ngIf="currentStatus" [@notificationAnimation] = "notificationAnimation">
+  <img src="{{currentStatus.icon}}" alt="">
+  <h1 class="title-text">{{ currentStatus.text }}</h1>
+  <!--<h2 *ngIf="currentStatus.additionalString" class="additional-string">{{ currentStatus.additionalString }}</h2>-->
+  <h2 *ngIf="currentStatus.additionalString" class="additional-string" [innerHTML]="currentStatus.additionalString"></h2>
+  <app-standard-button-dbilv class="closeBtn" buttonType="secondary" title="Weiter" (click)="onCloseStatusNotification($event)"></app-standard-button-dbilv>
+</div>

@@ -1,0 +1,156 @@
+<div class="container projectContentContainer" [@projectContentState]="projectContentState">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 report-tile-container">
+      <div class="report-tile">
+        <h3>Kurzbeschreibung</h3>
+        <p>{{ (currentDemand)?.description }}</p>
+        <table class=" ">
+          <tbody>
+            <tr>
+              <td>
+                <h3>Budget:</h3>
+              </td>
+              <td>
+                <p>{{ currentDemand?.budget }} €</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>Zieltermin:</h3>
+              </td>
+              <td>
+                <p>{{ currentDemand?.endDate | standardDate }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>Priorität:</h3>
+              </td>
+              <td>
+                <p>{{ currentDemand?.priority }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h3>Vertragsart:</h3>
+              </td>
+              <td>
+                <p>{{ contractType | simpleTranslation }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12 report-tile-container">
+      <div class="report-tile">
+        <h3 class="text-center">Umsetzungsgrad</h3>
+        <app-progress-circle
+          [circleValue]="currentStats?.totalProgress"
+          unit="%">
+        </app-progress-circle>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12 report-tile-container">
+      <div class="report-tile">
+        <h3 class="text-center">Verbrauchtes Budget</h3>
+        <app-progress-circle
+          [circleValue]="currentStats?.totalPaid"
+          unit="%"
+        ></app-progress-circle>
+      </div>
+    </div>
+
+
+    <!-- dirty styles, but this will be deleted soon, its just for the showcase,
+         as long as there  is no other way to get delivery objects -->
+    <div *ngIf="contractType !== 'SUBSCRIPTION_CONTRACT'"
+         class="col-md-4 col-sm-12 report-tile-container" style="height: 428px;">
+      <div class="report-tile">
+        <h3 class="text-center">Delivery Test</h3>
+
+        <div class="col-md-8 col-md-offset-2 "
+             *ngIf="attachmentUploader.getNotUploadedItems()?.length === 0"
+              style="margin-top: 4rem;">
+          <input class="hidden" type="file" ng2FileSelect [uploader]="attachmentUploader" #fileInputHiddenInput/>
+          <app-standard-button-dbilv
+            class="addFileBtn "
+            title='Datei Auswählen'
+            buttonType="light"
+            (click)="fileInputHiddenInput.click()"
+          ></app-standard-button-dbilv>
+        </div>
+
+
+        <!--<div class="col-md-8 col-md-offset-2 "-->
+             <!--*ngIf="attachmentUploader.getNotUploadedItems() && attachmentUploader.getNotUploadedItems()?.length === 0"-->
+             <!--style="margin-top: 4rem;">-->
+          <!--<app-standard-button-dbilv-->
+            <!--class="addFileBtn "-->
+            <!--title='Dummy Daten'-->
+            <!--buttonType="secondary"-->
+            <!--(click)="createDummyData()"-->
+          <!--&gt;</app-standard-button-dbilv>-->
+        <!--</div>-->
+
+        <div class="col-md-12 " style="margin-top: 4rem;"
+             *ngIf="attachmentUploader.getNotUploadedItems()?.length > 0">
+          <h3 class="text-center">Ausgewählte Datei</h3>
+          <div class="col-md-10 " >
+            <h4 style="color: white;">{{attachmentUploader.getNotUploadedItems()[0]?.file?.name}}</h4>
+          </div>
+
+          <div class="col-md-2 fileActions">
+             <img src="assets/img/icons/smallIcons_64x64/icon_small_trash.png"
+               class="delete pull-right"
+               alt="Datei entfernen"
+               title="Datei entfernen"
+               style="cursor: pointer; width: 23px;"
+
+               (click)="clearUploadQueue()">
+          </div>
+
+
+        </div>
+
+        <div class="col-md-12 text-center  "
+             *ngIf="attachmentUploader.getNotUploadedItems()?.length > 0"
+              style="padding-left: 0px;">
+          <app-standard-button-dbilv (click)="sendDeliveryTestData($event)"
+                                     title="Hochladen"
+                                     buttonType="normal"
+                                     class="pull-left btnCancel laddaBtn "
+                                     style="margin-top: 3rem; position: relative; left: 32%">
+          </app-standard-button-dbilv>
+        </div>
+
+
+        <!-- Für Werkverträge -->
+        <a *ngIf="contractType !== 'SERVICE_CONTRACT'"
+           href="/ilv/app/assets/dummyData/delivery-werkvertrag.txt"
+           download="delivery-werkvertrag.txt"
+           style="bottom: 20px; right: 20px; color: white; position: absolute; opacity: 0.8;"
+        >Beispieldatei herunterladen</a>
+
+        <!-- Für Dienstleistungsverträge -->
+        <a *ngIf="contractType === 'SERVICE_CONTRACT'"
+           href="/ilv/app/assets/dummyData/delivery-dienstvertrag.txt"
+           download="delivery-dienstvertrag.txt"
+           style="bottom: 20px; right: 20px; color: white; position: absolute; opacity: 0.8;"
+        >Beispieldatei herunterladen</a>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-8 col-sm-12 report-tile-container pull-right">
+      <div class="report-tile">
+        <h3 class="text-center">Projekt-Verlauf</h3>
+        <app-progress-chart [dataPoints] = "progressChartDatapoints" #progressChart>
+        </app-progress-chart>
+      </div>
+    </div>
+
+
+  </div>
+</div>

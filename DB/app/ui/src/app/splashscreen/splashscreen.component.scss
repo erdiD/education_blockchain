@@ -1,0 +1,17 @@
+@import "../../styles/globalMixins";
+
+.splashscreenView{
+  width:100%;
+  height:100vh;
+}
+
+.logoImageCol{
+  height: 100%;
+}
+
+.logoImageCol > img{
+  @include absoluteCenter(519px,80px);
+  width:519px;
+  height:80px;
+}
+

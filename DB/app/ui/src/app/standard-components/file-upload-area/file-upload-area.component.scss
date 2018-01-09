@@ -1,0 +1,83 @@
+@import "../../../styles/colors";
+@import "../../../styles/globalMixins";
+
+$iconSize: 23px;
+
+input.fileInput {
+  display: none;
+}
+
+.margin-top-2 {
+  margin-top: 2rem;
+}
+
+.uploadArea {
+
+  margin-top: 20px;
+  margin-left: -40px;
+
+  .uploadBtn {
+    float: left;
+  }
+
+  .heading {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    margin-left: 15px;
+    background-color: rgba(40, 215, 255, 0.02);;
+
+    h3 {
+      font-size: 14px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .attachmentFile {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    margin-left: 15px;
+    background-color: $tableCellUnEvenCountCellBackgroundColor;
+
+    .fileActions {
+      cursor: pointer;
+      padding: 0;
+      margin-top: -3px;
+      img {
+        float:right;
+        width: $iconSize;
+        margin-right:20px;
+      }
+    }
+  }
+
+  .attachmentFile.onServer {
+    .fileActions {
+      img.delete {
+        opacity: 0.3;
+      }
+      img.download{
+        margin-top:1px;
+      }
+    }
+  }
+
+  .attachmentFile:first-of-type {
+    margin-top: 10px;
+  }
+
+  .attachmentFile:last-of-type {
+    margin-bottom: 20px;
+  }
+
+  .fileName {
+  }
+
+  .addFileBtn {
+    margin-left: 40px;
+    margin-top: 20px;
+  }
+
+}

@@ -1,0 +1,80 @@
+<div class="row UserAvatarRow">
+  <app-user-avatar [user]="projectEntityOffer.creator"></app-user-avatar>
+  <p class="Date">{{projectEntityOffer.creationTime | standardDate}}</p>
+</div>
+<div class="row DescriptionRow">
+  <p>{{projectEntityOffer.description}}</p>
+</div>
+<div class="row AdditionalsRow">
+  <div class="col-md-6 leftAdditionSection">
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Preis:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityOffer.price}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Start:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityOffer.startDate | standardDate}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Auslieferung:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityOffer.endDate | standardDate}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Vertragstyp:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityOffer.contractType | simpleTranslation}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Zahlungsmodalität:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityOffer.paymentType | simpleTranslation}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Status:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityOffer.state | simpleTranslation}}</h5>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-6 rightAdditionSection"
+       *ngIf=" projectEntityOffer && projectEntityOffer.attachments.length > 0">
+    <h4>Anhang:</h4>
+    <h5>
+      <p *ngFor="let attachment of projectEntityOffer.attachments">
+        <a *ngFor="let content of attachment | jsonObject"
+           href="{{getDownloadUrl(projectEntityOffer.id, content.value[0]?.fileId)}}"
+           target="_blank">{{content.key}}
+        </a>
+      </p>
+    </h5>
+  </div>
+
+</div>

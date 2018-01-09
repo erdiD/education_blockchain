@@ -1,0 +1,64 @@
+<div class="row UserAvatarRow">
+  <app-user-avatar
+    [user]="projectEntityDemand.creator"
+    ></app-user-avatar>
+  <p class="Date">{{projectEntityDemand.creationTime | standardDate}}</p>
+</div>
+<div class="row DescriptionRow">
+  <p>{{ projectEntityDemand.description }}</p>
+</div>
+<div class="row AdditionalsRow">
+  <div class="col-md-6 leftAdditionSection">
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Budget:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityDemand.budget }} €</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Zieltermin:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{ projectEntityDemand.endDate | standardDate}}</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Priorität:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5 *ngIf="projectEntityDemand.priority === 'LOW'">Niedrig</h5>
+        <h5 *ngIf="projectEntityDemand.priority === 'MEDIUM'">Mittel</h5>
+        <h5 *ngIf="projectEntityDemand.priority === 'HIGH'">Hoch</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Status:</h4>
+      </div>
+      <div class="col-md-7">
+        <h5>{{projectEntityDemand.state | simpleTranslation}}</h5>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6 rightAdditionSection"
+       *ngIf=" projectEntityDemand && projectEntityDemand.attachments.length > 0">
+    <h4>Anhang:</h4>
+    <h5>
+      <p *ngFor="let attachment of projectEntityDemand.attachments">
+        <a *ngFor="let content of attachment | jsonObject"
+          href="{{getDownloadUrl(projectEntityDemand.id, content.value[0]?.fileId)}}"
+          target="_blank">{{content.key}}
+        </a>
+      </p>
+    </h5>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{
+  "project": {
+    "name": "Name",
+    "isDraft": "",
+    "demand": {
+      "projectID": "",
+      "createTime": "",
+      "description": "beschr",
+      "descriptionDocumentURL": "",
+      "deadline": "2017-06-13T22:00:00.000Z",
+      "action": "open",
+      "state": "",
+      "recipient": "",
+      "budget": "10€",
+      "priority": "low"
+    }
+  }
+}

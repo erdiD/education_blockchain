@@ -1,0 +1,60 @@
+/* FONT COLORS */
+$white: #ffffff;
+$black: rgba(0,0,0,1);
+$lightBlue: rgba(40,215,255,1);
+$darkBlueFontColor: #004B64;
+$mediumGrey: rgba(190,190,190,1);
+
+/* BUTTONS */
+$btnBlueMedium: rgba(0,135,185,1);
+$btnStandardBlueDark: rgba(0,75,100,1);
+$btnStandardBlueDarkHover: rgba(0,101,134,1);
+$btnSecondaryBlue: rgba(0,135,185,1);
+$btnSecondaryBlueHover: #34ACD9;
+$btnLightWhite: #e9e9e9;
+$btnLightWhiteHover: #ffffff;
+
+/* HEADER */
+$headerBGColor: rgba(0,0,0,1);
+$headerLightBlueShadowColor: rgba(40,215,255,0.7);
+$projectHeaderMainBackgroundColor: rgba(40, 215, 255, 0.13);
+
+/* MAIN BACKGROUND */
+$mainBackgroundColor: rgba(23,23,23,1.0);
+$mainBackgroundGradientInnerColor: rgba(44,101,116,1);
+
+/* TABLE - MAIN TABLE */
+$tableCellEvenCountCellBackgroundColor: rgba(40, 215,255,0.2);
+$tableCellUnEvenCountCellBackgroundColor: rgba(40, 215, 255, 0.05);
+$tableHoverCellBackgroundColor: rgba(40, 215,255,0.25);
+$tableClickCellBackgroundColor: rgba(40, 215,255,0.01);
+
+
+/* PROJECT-VIEW-PGROGRESS-View */
+$projectViewProgressViewBackgroundMainColor: rgba(40, 215, 255, 0.055);
+$projectViewProgressBorderLineColor: rgba(40, 215, 255, 0.2);
+
+$headerTabColorNormal: rgba(40, 215, 255, 0.055);
+$headerTabColorHover: rgba(40, 215, 255, 0.09);
+
+@mixin gradientBackground($percent){
+  background-repeat: no-repeat;
+  background: $mainBackgroundColor;
+  background: -moz-radial-gradient(center, ellipse cover, $mainBackgroundGradientInnerColor 0%, $mainBackgroundColor $percent);
+  background: -webkit-gradient(radial, center center, 0px, center center, $percent, color-stop(0%, $mainBackgroundGradientInnerColor), color-stop(100%, $mainBackgroundColor));
+  background: -webkit-radial-gradient(center, ellipse cover, $mainBackgroundGradientInnerColor 0%, $mainBackgroundColor $percent);
+  background: -o-radial-gradient(center, ellipse cover, $mainBackgroundGradientInnerColor 0%, $mainBackgroundColor $percent);
+  background: -ms-radial-gradient(center, ellipse cover, $mainBackgroundGradientInnerColor 0%, $mainBackgroundColor $percent);
+  background: radial-gradient(ellipse at center, $mainBackgroundGradientInnerColor 0%, $mainBackgroundColor $percent);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c6474', endColorstr='#171717', GradientType=1 );
+}
+
+@mixin linearGradient($fromPerc,$toPerc, $alpha1, $alpha2){
+  background: -moz-linear-gradient(top, rgba(0,0,0,$alpha1) $fromPerc, rgba(0,0,0,$alpha2) $toPerc);
+  background: -webkit-linear-gradient(top, rgba(0,0,0,$alpha1) $fromPerc,rgba(0,0,0,$alpha2) $toPerc);
+  background: linear-gradient(to bottom, rgba(0,0,0,$alpha1) $fromPerc,rgba(0,0,0,$alpha2) $toPerc);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=0 );
+}
+
+$dbOfficeRegular: 'DBOffice-Regular', 'Open-sans', 'Helvetica', sans-serif;
+$dbOfficeBold: 'DBOffice-Bold', 'Open-sans', 'Helvetica', sans-serif;

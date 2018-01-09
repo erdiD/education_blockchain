@@ -1,0 +1,264 @@
+@import '~@angular/material/theming';
+@import 'colors';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+
+$ilvColorMap: (
+  50: $lightBlue,
+  100: $lightBlue,
+  200: $lightBlue,
+  300: $lightBlue,
+  400: $lightBlue,
+  500: $lightBlue,
+  600: $lightBlue,
+  700: $lightBlue,
+  800: $lightBlue,
+  900: $lightBlue,
+  A100: $lightBlue,
+  A200: $lightBlue,
+  A400: $lightBlue,
+  A700: $lightBlue,
+  contrast: (
+    50: $lightBlue,
+    100: $lightBlue,
+    200: $lightBlue,
+    300: white,
+    400: white,
+    500: $lightBlue,
+    600: $lightBlue,
+    700: $lightBlue,
+    800: $lightBlue,
+    900: $lightBlue,
+    A100: $lightBlue,
+    A200: white,
+    A400: white,
+    A700: $white-87-opacity,
+  )
+);
+
+
+$candy-app-primary: mat-palette($ilvColorMap);
+$candy-app-accent:  mat-palette($ilvColorMap);
+
+// The warn palette is optional (defaults to red).
+$candy-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+//@include angular-material-theme($candy-app-theme);
+/*@include mat-input-theme($candy-app-theme)
+@include mat-select-theme($candy-app-theme)
+@include mat-checkbox-theme($candy-app-theme)
+@include mat-radio-theme($candy-app-theme)
+@include mat-datepicker-theme($candy-app-theme)*/
+@include angular-material-theme($candy-app-theme)
+
+md-input-container textarea{
+  min-height:225px ;
+}
+
+md-input-container, md-select{
+  float:left;
+  font-family: $dbOfficeRegular;
+  font-size:16px;
+  letter-spacing: 0.05em;
+}
+
+.mat-input-container{
+  font-family: $dbOfficeRegular !important;
+}
+
+.mat-input-element{
+  font-family: $dbOfficeRegular !important;
+}
+
+.mat-input-placeholder{
+ color:$lightBlue;
+  font-family: $dbOfficeRegular !important;
+  //padding-left:20px;
+}
+
+.mat-input-underline{
+  border-color:$lightBlue;
+}
+
+.mat-select-placeholder{
+  float:left;
+  font-family: $dbOfficeRegular;
+  font-size:16px;
+  letter-spacing: 0.05em;
+  color:$lightBlue;
+}
+
+.mat-select-underline{
+  background-color:$lightBlue;
+}
+
+.mat-select-content{
+  background: $btnStandardBlueDark;
+}
+
+.mat-select-arrow{
+  color:$lightBlue;
+}
+
+.mat-select-value{
+  color:$white;
+}
+
+.mat-input-element{
+  line-height: 22px !important;
+}
+
+.mat-input-element:disabled{
+  float:left;
+  font-family: $dbOfficeRegular;
+  font-size:16px;
+  letter-spacing: 0.05em;
+  color:rgba(40,215,255,0.6);
+}
+
+.mat-radio-label-content{
+  float:left;
+  font-family: $dbOfficeRegular;
+  font-size:16px;
+  letter-spacing: 0.05em;
+  color:$lightBlue;
+  margin-top:7px;
+}
+
+.mat-radio-container {
+  top: 4px !important;
+}
+
+.mat-radio-outer-circle{
+  border-color: $lightBlue;
+
+
+}
+
+.mat-radio-disabled .mat-radio-outer-circle,
+.mat-radio-disabled .mat-radio-label-content{
+  color:rgba(40,215,255,0.6);
+  border-color: rgba(40,215,255,0.6) !important;
+}
+
+
+
+
+.mat-input-element:disabled + .mat-input-placeholder-wrapper .mat-input-placeholder{
+  color:rgba(40,215,255,0.6);
+}
+
+.mat-checkbox{
+  font-family: $dbOfficeRegular !important;
+}
+
+.mat-checkbox-label{
+  font-size: 16px;
+  font-weight:400;
+}
+
+.mat-checkbox-frame{
+  border-color:$lightBlue;
+}
+
+.mat-datepicker-toggle {
+  display: inline-block;
+  background: url('../assets/img/icons/icon_calendar.png') no-repeat !important;
+  background-size: 100% auto !important;
+}
+
+.mat-input-container .mat-datepicker-toggle {
+  width: 24px !important;
+  height: 24px !important;
+  margin-top: -6px;
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 5000;
+}
+.mat-datepicker-content-touch .mat-calendar {
+  width: 44vmin !important;
+  height: 55vmin !important;
+  max-width: 450px !important;
+  max-height: 550px !important;
+  background-color: #f7f7f7;
+}
+.mat-calendar-body-cell-content {
+  cursor: pointer;
+}
+.mat-datepicker-content-touch .mat-button,.mat-datepicker-content-touch .mat-icon-button,.mat-datepicker-content-touch .mat-raised-button {
+  color: $btnSecondaryBlueHover;
+}
+
+.mat-calendar-period-button{
+  background-color: #ededed;
+}
+
+.mat-calendar-table-header {
+  color: $btnSecondaryBlueHover;
+}
+
+.mat-calendar-body-selected {
+  background-color: #ededed;
+  color: #34ACD9;
+}
+
+.mat-select-panel {
+  max-height: 490px !important;
+}
+
+
+.mat-input-invalid .mat-input-placeholder, .mat-input-invalid .mat-placeholder-required {
+  color: $lightBlue;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+}
+
+.mat-input-invalid{
+  border-color: $lightBlue;
+}
+
+.mat-input-underline {
+  background-color: rgba(40, 215, 255,0.5);
+}
+
+.mat-input-invalid .mat-input-ripple {
+  background-color: $lightBlue;
+}
+
+.mat-dialog-container {
+  background-color: #003246;
+}
+
+.mat-dialog-content{
+  min-width: 500px;
+  max-width: 550px;
+  min-height: 150px;
+}
+
+.mat-option {
+  color: white;
+}
+
+.mat-dialog-container {
+  color: $white;
+}
+
+

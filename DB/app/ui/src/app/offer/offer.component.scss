@@ -1,0 +1,41 @@
+@import '../../styles/colors';
+@import '../../styles/globalMixins';
+
+.demandContentContainer{
+  margin-top: 30px;
+  min-height:1000px;
+}
+
+.backToProjectHeader{
+  margin-bottom: 15px;
+}
+
+.backBtn{
+  @include border-radius(1pt);
+  @include animateTransition(all, 0.5s, $easeInOutQuint);
+  position:relative;
+  float:left;
+  cursor:pointer;
+  background-color:rgba(40, 215, 255, 0.00);
+  width:70px;
+  height:70px;
+}
+
+.backBtn:hover{
+  background-color:rgba(40, 215, 255, 0.055);
+}
+
+.backBtn img{
+  @include absoluteCenter(44px,44px);
+  width:44px;
+  height:44px;
+}
+
+.backToProjectHeader{
+  h2{
+    float:left;
+    margin-left:10px;
+  }
+}
+
+

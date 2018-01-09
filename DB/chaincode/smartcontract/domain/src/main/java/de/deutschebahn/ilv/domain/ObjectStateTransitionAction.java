@@ -1,0 +1,54 @@
+package de.deutschebahn.ilv.domain;
+
+/**
+ * Actions that can be triggered over a demand that may produce an state transition.
+ */
+public enum ObjectStateTransitionAction {
+    CREATE_DEMAND,
+    OPEN_DEMAND,
+    CLOSE_DEMAND,
+    SUBMIT_DEMAND,
+    BLOCKED_DEMAND,
+    APPROVE_DEMAND,
+    REJECT_DEMAND,
+    CORRECT_DEMAND,
+    ACCEPT_DEMAND,
+    REVOKE_DEMAND,
+    COMPLETE_DEMAND,
+    LOCK_DEMAND,
+    RESIGN_DEMAND,
+    OFFER_IN_PROGRESS,
+    NO_MORE_OPEN_OFFERS,
+
+    OPEN_OFFER,
+    SUBMIT_OFFER,
+    ACCEPT_OFFER,
+    REJECT_OFFER,
+    APPROVE_OFFER,
+    APPROVE_OFFER_INTERNAL,
+    REVIEW_OFFER,
+    CLOSE_OFFER,
+    RESIGN_OFFER,
+    REWORK_OFFER,
+    COMPLETE_OFFER,
+    LOCK_OFFER,
+    REVOKE_OFFER,
+    EXPIRE,
+    ACTIVATE_OFFER,
+
+    UPDATE,
+
+    CREATE_CONTRACT,
+    SIGN_CONTRACT,
+    REJECT_CONTRACT,
+    TERMINATE_CONTRACT,
+
+    CREATE_DELIVERY,
+    ACTIVATE_DELIVERY,
+    CLOSE_DELIVERY,
+    COMPLETE_DELIVERY,
+    CREATE_DELIVERY_ENTRY,
+    ADD_DELIVERY_PSP,
+
+
+}

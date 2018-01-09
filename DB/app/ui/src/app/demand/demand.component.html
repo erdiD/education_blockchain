@@ -1,0 +1,28 @@
+<app-project-header
+  [headerState]="demandHeaderState"
+  [title]="headerTitle"
+  [projectID]="headerVorgangsnummer"
+  [projectPercentage]="0"
+  (closeProject)="onCloseProjectClicked()"
+  *ngIf="isNewProject">
+</app-project-header>
+
+<div class="container demandContentContainer" [ngStyle]="{'margin-top': isNewProject ? '150px' : '30px'}"
+                                              [@demandContentState]="demandContentState">
+  <div class="row backToProjectHeader" *ngIf="!isNewProject">
+    <div class="col-md-12">
+      <div class="backBtn" (click)="onCloseProjectClicked()">
+        <img src="assets/img/icons/icon_Back.png" alt="Zurück">
+      </div>
+      <h2>Bedarf bearbeiten</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-demand-form-component [projectEntityDemand]="projectEntityDemand"
+                       [currentProject]="currentProject"
+                       [isNewProject]="isNewProject"
+                       (closeProject)="onCloseProjectClicked()"></app-demand-form-component>
+    </div>
+  </div>
+</div>

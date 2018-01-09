@@ -1,0 +1,85 @@
+@import "../../../styles/colors";
+@import "../../../styles/globalMixins";
+
+.userAvatarImage {
+  @include border-radius(35px);
+  @include shadow(0px, 2px, 5px, 0px, rgba(0, 0, 0, 0.45));
+  width: 70px;
+  height: 70px;
+  float: left;
+  overflow: hidden;
+}
+
+.userAvatarImage img {
+  @include border-radius(35px);
+  //border:2px solid rgba(40,215,255,0.7);
+  width: 70px;
+  height: auto;
+
+}
+
+.userAvatarName {
+  float: left;
+  margin-left: 20px;
+}
+
+.userAvatarName h4 {
+  line-height: 70px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.smallVersion .userAvatarImage {
+  @include border-radius(17px);
+  @include shadow(0px, 2px, 5px, 0px, rgba(0, 0, 0, 0.45));
+  width: 32px;
+  height: 32px;
+  float: left;
+  overflow: hidden;
+}
+
+.smallVersion .userAvatarImage img {
+  @include border-radius(17px);
+  //border:2px solid rgba(40,215,255,0.7);
+  width: 32px;
+  height: auto;
+}
+
+.smallVersion .userAvatarName {
+  margin-left:15px;
+}
+
+.smallVersion .userAvatarName h4 {
+  line-height: 32px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.userAvatar{
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.userAvatar .tooltip{
+  @include animateTransition(opacity, 0.5s, ease);
+  @include notSelectable();
+  @include border-radius(2px);
+  padding:5px;
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:0;
+  background-color: $btnStandardBlueDark;
+
+}
+
+.userAvatar:hover .tooltip{
+  opacity:1;
+}
+
+.userAvatar .tooltip p{
+  font-family: $dbOfficeBold;
+  color: $lightBlue;
+  padding:0;
+  margin:0;
+}
